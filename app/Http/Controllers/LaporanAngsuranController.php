@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Angsuran;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LaporanAngsuranController extends Controller
@@ -66,5 +68,12 @@ class LaporanAngsuranController extends Controller
         $installments = $querySavingMonth->get();
 
         return view('layouts.laporan_angsuran', compact('installments'));
+    }
+
+    public function exportPdf()
+    {
+        $installments = Angsuran::all();
+        $pdf = Pdf::loadView('pdf.export_angsuran', ['installment' => $installments]);
+        return $pdf->download('laporan-angsuran' . Carbon::now()->timestamp . '.pdf');
     }
 }

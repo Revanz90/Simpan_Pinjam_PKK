@@ -37,7 +37,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#modal-default-pinjaman">
                         <i class="fas fa-plus"></i>
-                        Review Pinjaman
+                        Nota Pinjaman
                     </button>
                 @endif
             </div>
@@ -102,12 +102,12 @@
         </div>
     </div>
 
-    <!-- Modal review pinjaman -->
+    <!-- Modal Nota pinjaman -->
     <div class="modal fade" id="modal-default-pinjaman">
         <div class="modal-dialog" style="max-width: 80%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Review Pinjaman</h4>
+                    <h4 class="modal-title">Nota Pinjaman</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -117,11 +117,10 @@
                         <div class="card">
                             <!-- Navbar Content -->
                             <div class="card-header ">
-                                <h4 class="card-title font-weight-bold">TAMBAH REVIEW PINJAMAN</h4>
+                                <h4 class="card-title font-weight-bold">TAMBAH NOTA PINJAMAN</h4>
                                 <div class="card-tools"></div>
                             </div>
-                            <!-- /Navbar Content -->
-                            <!-- Page Content -->
+
                             <form action="" enctype="multipart/form-data" method="POST" class="form-horizontal"
                                 id="reviewpinjamanform">
                                 {{ csrf_field() }}
@@ -163,17 +162,15 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- /Page Content -->
                         </div>
                     </section>
                 </div>
-                <!-- /Main Content -->
 
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-info" data-dismiss="modal">KEMBALI</button>
                     <div class="btn-savechange-reset">
                         @if ($data->status_ketua == 'baru')
-                            @hasrole('admin|ketua')
+                            @hasrole('admin|ketua|bendahara')
                                 <button type="submit" class="btn btn-danger" value="ditolak" name="c"
                                     form="reviewpinjamanform">
                                     <i class="fas fa-times"></i>
@@ -211,8 +208,7 @@
                                 <h4 class="card-title font-weight-bold">TAMBAH ANGSURAN</h4>
                                 <div class="card-tools"></div>
                             </div>
-                            <!-- /Navbar Content -->
-                            <!-- Page Content -->
+
                             <form action="{{ route('store_dataangsuran', ['id' => $data->id]) }}"
                                 enctype="multipart/form-data" method="POST" class="form-horizontal" id="pinjamanform">
                                 {{ csrf_field() }}
@@ -266,11 +262,9 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- /Page Content -->
                         </div>
                     </section>
                 </div>
-                <!-- /Main Content -->
 
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

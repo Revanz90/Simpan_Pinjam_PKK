@@ -11,13 +11,23 @@
 </head>
 
 <body>
-    <div class="container" id="monthly-report">
-        <div class="text-head text-center mt-3">
-            <h3>Laporan Data Angsuran</h3>
-            <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah, Sleman</h6>
-        </div>
+    <div class="card mt-3" id="monthly-report">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="img/Logo-PKK.png" width="20%" alt="Logo-PKK">
+                </a>
+                <div class="text-head text-center">
+                    <h3>Laporan Data Angsuran</h3>
+                    <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
+                        Sleman
+                    </h6>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-
+    <div class="card-body">
         <div class="container mt-5">
             <div class="col-md-6 mb-2">
                 <form action="" method="GET">
@@ -46,37 +56,51 @@
 
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
+                    <a href="{{ route('export_angsuran') }}" class="btn btn-warning mt-3">Cetak Angsuran</a>
+                </form>
             </div>
-            </form>
         </div>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Anggota</th>
+                    <th>Nama Anggota</th>
+                    <th>Nominal Angsuran</th>
+                    <th>Tanggal Angsuran</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($installments as $installment)
+                    <tr>
+                        <th>{{ $installment->author_id }}</th>
+                        <td>{{ $installment->author_name }}</td>
+                        <td>{{ $installment->nominal_angsuran }}</td>
+                        <td>{{ $installment->tanggal_transfer }}</td>
+                        <td>{{ $installment->status }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID Anggota</th>
-                <th>Nama Anggota</th>
-                <th>Nominal Angsuran</th>
-                <th>Tanggal Angsuran</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($installments as $installment)
-                {{-- @dd($data) --}}
-                <tr>
-                    <th>{{ $installment->author_id }}</th>
-                    <td>{{ $installment->author_name }}</td>
-                    <td>{{ $installment->nominal_angsuran }}</td>
-                    <td>{{ $installment->tanggal_transfer }}</td>
-                    <td>Diterima</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="card-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 offset-md-9">
+                    <div class="text-center">
+                        <p>Yogyakarta, 7 Februari 2024</p>
+                        <p>Ketua PKK</p>
+                        <br>
+                        <br>
+                        <p>..........................................</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
