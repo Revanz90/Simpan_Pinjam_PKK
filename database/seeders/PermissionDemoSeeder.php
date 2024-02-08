@@ -92,5 +92,21 @@ class PermissionDemoSeeder extends Seeder
             'password' => bcrypt('12345678'),
         ]);
         $user->assignRole($anggotaRole);
+
+        // create stafftaud
+        $user = User::factory()->create([
+            'name' => 'Rosa Anastasya',
+            'email' => 'rosaanastasya@gmail.com',
+            'password' => bcrypt('12345678'),
+        ]);
+        $user->assignRole($anggotaRole);
+
+        // create stafftaud
+        $user = User::factory()->create([
+            'name' => 'Jihan Fahira',
+            'email' => 'jihanfahira@gmail.com',
+            'password' => bcrypt('12345678'),
+        ]);
+        $user->assignRole($anggotaRole);
     }
 }

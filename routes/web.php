@@ -58,7 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/export_simpanan', [MonthlyReportController::class, 'exportPdf'])->name('export_simpanan');
 
     Route::get('/laporan_pinjaman', [LaporanPinjamanController::class, 'index'])->name('laporan_pinjaman');
+    Route::get('/export_pinjaman', [LaporanPinjamanController::class, 'exportPdf'])->name('export_pinjaman');
+
     Route::get('/laporan_angsuran', [LaporanAngsuranController::class, 'index'])->name('laporan_angsuran');
+    Route::get('/export_angsuran', [LaporanAngsuranController::class, 'exportPdf'])->name('export_angsuran');
 
 });
 

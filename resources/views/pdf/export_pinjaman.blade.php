@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Laporan Data Simpanan</title>
+    <title>Laporan Data Pinjaman</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                             </a>
                         </div>
                         <div class="text-center col-md-8">
-                            <h3>Laporan Data Simpanan</h3>
+                            <h3>Laporan Data Pinjaman</h3>
                             <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
                                 Sleman
                             </h6>
@@ -38,19 +38,19 @@
                             <tr>
                                 <th>ID Anggota</th>
                                 <th>Nama Anggota</th>
-                                <th>Nominal Simpanan</th>
-                                <th>Tanggal Simpanan</th>
-                                <th>Status Simpanan</th>
+                                <th>Nominal Pinjaman</th>
+                                <th>Tanggal Pinjaman</th>
+                                <th>Status Pinjaman</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($savings as $saving)
+                            @foreach ($credits as $credit)
                                 <tr>
-                                    <th>{{ $saving->author_id }}</th>
-                                    <td>{{ $saving->author_name }}</td>
-                                    <td>{{ $saving->nominal_uang }}</td>
-                                    <td>{{ $saving->created_at }}</td>
-                                    <td>{{ $saving->status }}</td>
+                                    <th>{{ $credit->author_id }}</th>
+                                    <td>{{ $credit->author_name }}</td>
+                                    <td>{{ $credit->nominal_pinjaman }}</td>
+                                    <td>{{ $credit->tanggal_pinjaman }}</td>
+                                    <td>{{ $credit->status_credit }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

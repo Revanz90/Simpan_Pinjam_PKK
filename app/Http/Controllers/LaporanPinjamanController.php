@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pinjamans;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LaporanPinjamanController extends Controller
@@ -66,5 +68,12 @@ class LaporanPinjamanController extends Controller
         $credits = $querySavingMonth->get();
 
         return view('layouts.laporan_pinjaman', compact('credits'));
+    }
+
+    public function exportPdf()
+    {
+        $credits = Pinjamans::all();
+        $pdf = Pdf::loadView('pdf.export_pinjaman', ['credits' => $credits]);
+        return $pdf->download('laporan-pinjaman' . Carbon::now()->timestamp . '.pdf');
     }
 }

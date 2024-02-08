@@ -11,20 +11,29 @@
 </head>
 
 <body>
-    <div class="container" id="monthly-report">
-        <div class="text-head text-center mt-3">
-            <h3>Laporan Data Simpanan</h3>
-            <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah, Sleman</h6>
-        </div>
+    <div class="card mt-3" id="monthly-report">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="img/Logo-PKK.png" width="20%" alt="Logo-PKK">
+                </a>
+                <div class="text-head text-center">
+                    <h3>Laporan Data Simpanan</h3>
+                    <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
+                        Sleman
+                    </h6>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-
-        <div class="container mt-5">
+    <div class="card-body">
+        <div class="container">
             <div class="col-md-6 mb-2">
                 <form action="" method="GET">
                     <div class="flex input-group gap-4">
                         <select class="form-select"name="month_filter">
-                            {{-- <button type="submit" value="januari" class="btn btn-primary">Januari</button> --}}
-                            {{-- <option value="januari" type="submit">Januari</option> --}}
+                            <option value="">Bulan</option>
                             <option value="januari">Januari</option>
                             <option value="februari">Februari</option>
                             <option value="maret">Maret</option>
@@ -51,34 +60,46 @@
             </div>
             </form>
         </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Anggota</th>
+                    <th>Nama Anggota</th>
+                    <th>Nominal Simpanan</th>
+                    <th>Tanggal Simpanan</th>
+                    <th>Status Simpanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($savings as $saving)
+                    <tr>
+                        <th>{{ $saving->author_id }}</th>
+                        <td>{{ $saving->author_name }}</td>
+                        <td>{{ $saving->nominal_uang }}</td>
+                        <td>{{ $saving->tanggal_transfer }}</td>
+                        <td>{{ $saving->status }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID Anggota</th>
-                <th>Nama Anggota</th>
-                <th>Nominal</th>
-                <th>Tanggal</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($savings as $saving)
-                {{-- @dd($data) --}}
-                <tr>
-                    <th>{{ $saving->author_id }}</th>
-                    <td>{{ $saving->author_name }}</td>
-                    <td>{{ $saving->nominal_uang }}</td>
-                    <td>{{ $saving->tanggal_transfer }}</td>
-                    <td>Diterima</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="card-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 offset-md-9">
+                    <div class="text-center">
+                        <p>Yogyakarta, 7 Februari 2024</p>
+                        <p>Ketua PKK</p>
+                        <br>
+                        <br>
+                        <p>..........................................</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

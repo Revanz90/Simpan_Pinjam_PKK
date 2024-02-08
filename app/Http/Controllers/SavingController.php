@@ -13,7 +13,7 @@ class SavingController extends Controller
     public function index()
     {
         $saving = Simpanan::all()->sortByDesc('created_at');
-        return view('layouts.data_simpanan', ['datas' => $saving]);
+        return view ('layouts.data_simpanan', ['datas' => $saving]);
     }
 
     public function store(Request $request)

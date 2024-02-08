@@ -11,13 +11,23 @@
 </head>
 
 <body>
-    <div class="container" id="monthly-report">
-        <div class="text-head text-center mt-3">
-            <h3>Laporan Data Pinjaman</h3>
-            <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah, Sleman</h6>
-        </div>
+    <div class="card mt-3" id="monthly-report">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="img/Logo-PKK.png" width="20%" alt="Logo-PKK">
+                </a>
+                <div class="text-head text-center">
+                    <h3>Laporan Data Pinjaman</h3>
+                    <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
+                        Sleman
+                    </h6>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-
+    <div class="card-body">
         <div class="container mt-5">
             <div class="col-md-6 mb-2">
                 <form action="" method="GET">
@@ -46,37 +56,50 @@
 
                         <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
+                    <a href="{{ route('export_pinjaman') }}" class="btn btn-warning mt-3">Cetak Pinjaman</a>
+                </form>
             </div>
-            </form>
         </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Anggota</th>
+                    <th>Nama Anggota</th>
+                    <th>Nominal Pinjaman</th>
+                    <th>Tanggal Pinjaman</th>
+                    <th>Status Pinjaman</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($credits as $credit)
+                    <tr>
+                        <th>{{ $credit->author_id }}</th>
+                        <td>{{ $credit->author_name }}</td>
+                        <td>{{ $credit->nominal_pinjaman }}</td>
+                        <td>{{ $credit->tanggal_pinjaman }}</td>
+                        <td>{{ $credit->status_credit }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID Anggota</th>
-                <th>Nama Anggota</th>
-                <th>Nominal</th>
-                <th>Tanggal Pinjaman</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($credits as $credit)
-                {{-- @dd($data) --}}
-                <tr>
-                    <th>{{ $credit->author_id }}</th>
-                    <td>{{ $credit->author_name }}</td>
-                    <td>{{ $credit->nominal_uang }}</td>
-                    <td>{{ $credit->tanggal_pinjaman }}</td>
-                    <td>Diterima</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="card-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 offset-md-9">
+                    <div class="text-center">
+                        <p>Yogyakarta, 7 Februari 2024</p>
+                        <p>Ketua PKK</p>
+                        <br>
+                        <br>
+                        <p>..........................................</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
