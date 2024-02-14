@@ -7,6 +7,7 @@ use App\Http\Controllers\DataAnggotaController;
 use App\Http\Controllers\DetailDataAngsuranController;
 use App\Http\Controllers\DetailDataPinjamanController;
 use App\Http\Controllers\DetailDataSimpananController;
+use App\Http\Controllers\DetailNotaController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\LaporanAngsuranController;
 use App\Http\Controllers\LaporanPinjamanController;
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/{id}/detail_datapinjaman', [DetailDataPinjamanController::class, 'index'])->name('detail_datapinjaman');
     Route::post('/{id}/detail_datapinjaman', [DetailDataPinjamanController::class, 'store_review'])->name('store_reviewpinjaman');
+    Route::get('/{id}/detail_nota', [DetailNotaController::class, 'index'])->name('detail_nota');
 
     Route::post('/{id}/store_angsuran_pinjaman', [InstallmentController::class, 'store_installment'])->name('store_dataangsuran');
     Route::get('/data_angsuran', [InstallmentController::class, 'index'])->name('dataangsuran');

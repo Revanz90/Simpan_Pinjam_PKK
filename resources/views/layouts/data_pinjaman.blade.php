@@ -85,6 +85,12 @@
                                         </i>
                                         Lihat
                                     </a>
+                                    <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch mt-1"
+                                        href="{{ route('detail_nota', ['id' => $data->id]) }}">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        Nota
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
