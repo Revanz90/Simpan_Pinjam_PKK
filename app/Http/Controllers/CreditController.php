@@ -25,7 +25,6 @@ class CreditController extends Controller
             $credit = new Pinjamans();
             $fileCredit = new CreditFile();
 
-            // Validasi yang wajib diinputkan pada request payloads
             $validated = $request->validate([
                 'nominal' => 'required',
                 'tanggal_transaksi' => 'required',

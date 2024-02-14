@@ -37,10 +37,6 @@
                 <div class="card-tools">
                     <input type="hidden" name="xnull" id="statusxid[2]" value="2">
                     <div class="project-actions text-center">
-                        {{-- <a href="{{ route('laporan_simpanan') }}" class="btn btn-warning" role="button"
-                            data-bs-toggle="button">
-                            <i class="fas fa-print"></i>
-                            CETAK</a> --}}
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
                             <i class="fas fa-plus"></i>
                             TAMBAH
@@ -68,18 +64,6 @@
                                 <td>{{ $data->id_anggota }}</td>
                                 <td>{{ $data->alamat_anggota }}</td>
                                 <td>{{ $data->jenis_kelamin }}</td>
-                                {{-- <td class="text-center d-flex flex-column align-items-stretch" style="gap: 4px">
-                                <div class="btn btn-xs btn-primary {{ $data->status_saving_masuk }}">
-                                    {{ Str::ucfirst($data->status) }}</div>
-                            </td>
-                            <td>
-                                <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch"
-                                    href=" {{ route('detail_datasimpanan', ['id' => $data->id]) }}">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    Lihat
-                                </a>
-                            </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
@@ -88,7 +72,6 @@
         </div>
     </section>
 
-    <!-- Modal Surat Masuk -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog" style="max-width: 80%">
             <div class="modal-content">
@@ -157,16 +140,6 @@
                                                         <label class="form-check-label" for="inlineRadio2">Wanita</label>
                                                     </div>
                                                 </div>
-
-                                                {{-- <div class="form-group row">
-                                                    <label for="proposal_ProposalTA"
-                                                        class="col-sm-2 col-form-label font-weight-normal">Upload Bukti
-                                                        Transfer</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="file" name="upload_bukti" class="form-control"
-                                                            required>
-                                                    </div>
-                                                </div> --}}
 
                                             </div>
                                         </div>

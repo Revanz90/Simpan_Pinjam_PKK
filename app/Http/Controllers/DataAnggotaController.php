@@ -18,7 +18,6 @@ class DataAnggotaController extends Controller
         try {
             $member = new Anggota();
 
-            // Validasi yang wajib diinputkan pada request payloads
             $validated = $request->validate([
                 'nama_anggota' => 'required',
                 'id_anggota' => 'required',
