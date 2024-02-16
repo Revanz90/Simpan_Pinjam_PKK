@@ -12,8 +12,14 @@ class SavingController extends Controller
 {
     public function index()
     {
-        $saving = Simpanan::all()->sortByDesc('created_at');
-        return view ('layouts.data_simpanan', ['datas' => $saving]);
+        $user = Auth::user();
+        // dd($user->role);
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $saving = Simpanan::all()->sortByDesc('created_at');
+        } else {
+            $saving = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+        return view('layouts.data_simpanan', ['datas' => $saving]);
     }
 
     public function store(Request $request)

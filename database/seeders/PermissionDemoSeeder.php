@@ -27,6 +27,8 @@ class PermissionDemoSeeder extends Seeder
         Permission::create(['name' => 'create data_pinjaman']);
         Permission::create(['name' => 'view data_angsuran']);
         Permission::create(['name' => 'create data_angsuran']);
+        Permission::create(['name' => 'view data_anggota']);
+        Permission::create(['name' => 'create data_anggota']);
 
         //create roles and assign existing permissions
         $adminRole = Role::create(['name' => 'admin']);
@@ -36,6 +38,8 @@ class PermissionDemoSeeder extends Seeder
         $adminRole->givePermissionTo('create data_pinjaman');
         $adminRole->givePermissionTo('view data_angsuran');
         $adminRole->givePermissionTo('create data_angsuran');
+        $adminRole->givePermissionTo('view data_anggota');
+        $adminRole->givePermissionTo('create data_anggota');
 
         $ketuaRole = Role::create(['name' => 'ketua']);
         $ketuaRole->givePermissionTo('view data_simpanan');
@@ -52,6 +56,8 @@ class PermissionDemoSeeder extends Seeder
         $bendaharaRole->givePermissionTo('create data_pinjaman');
         $bendaharaRole->givePermissionTo('view data_angsuran');
         $bendaharaRole->givePermissionTo('create data_angsuran');
+        $bendaharaRole->givePermissionTo('view data_anggota');
+        $bendaharaRole->givePermissionTo('create data_anggota');
 
         $anggotaRole = Role::create(['name' => 'anggota']);
         $anggotaRole->givePermissionTo('view data_simpanan');

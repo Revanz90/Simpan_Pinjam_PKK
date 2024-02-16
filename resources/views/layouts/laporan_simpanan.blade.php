@@ -13,15 +13,24 @@
 <body>
     <div class="card mt-3" id="monthly-report">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="img/Logo-PKK.png" width="20%" alt="Logo-PKK">
-                </a>
+            {{-- <div class="container">
+                <img src="img/Logo-PKK.png" width="10%" alt="Logo-PKK">
                 <div class="text-head text-center">
                     <h3>Laporan Data Simpanan</h3>
                     <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
                         Sleman
                     </h6>
+                </div>
+            </div> --}}
+
+            <div class=""
+                style="display: flex; grid-template-columns: 1fr 20px 10fr; gap: 10px; justify-content:center;"">
+                <img src="img/Logo-PKK.png" width="10%" alt="Logo-PKK"">
+                <div class="text-head text-center mt-4 mb-4">
+                    <h3 style="margin:
+                    0;">Laporan Data Simpanan</h3>
+                    <h6 style="margin: 0;">Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto,
+                        Berbah, Sleman</h6>
                 </div>
             </div>
         </nav>
@@ -85,18 +94,16 @@
         </table>
     </div>
 
-    <div class="card-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 offset-md-9">
-                    <div class="text-center">
-                        <p>Yogyakarta, 7 Februari 2024</p>
-                        <p>Ketua PKK</p>
-                        <br>
-                        <br>
-                        <br>
-                        <p>Eni Kusrini Amd.Kep</p>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 offset-md-9">
+                <div class="text-center">
+                    <p>Yogyakarta, 7 Februari 2024</p>
+                    <p>Ketua PKK</p>
+                    <br>
+                    <br>
+                    <br>
+                    <p>Eni Kusrini Amd.Kep</p>
                 </div>
             </div>
         </div>
