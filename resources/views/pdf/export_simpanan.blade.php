@@ -8,69 +8,95 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Laporan Data Simpanan</title>
+    <style>
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .header h3,
+        h5 {
+            font-size: 1.5em;
+        }
+
+        .content {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Additional styling to ensure proper PDF rendering */
+        body {
+            font-size: 12px;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container-fluid mt-3">
-        <div class="card" id="monthly-report">
-            <div class="card-header">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container col-md-10">
-                        <div class="text-head text-center">
-                            <a class="navbar-brand" href="#">
-                                <img src="img/Logo-PKK.png" width="20%" alt="Logo-PKK">
-                            </a>
-                        </div>
-                        <div class="text-center col-md-8">
-                            <h3>Laporan Data Simpanan</h3>
-                            <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
-                                Sleman
-                            </h6>
-                        </div>
-                    </div>
-                </nav>
+    <div class="mt-3" id="monthly-report">
+        <div class="header">
+            <img src="img/Logo-PKK.png" alt="Logo-PKK">
+            <div class="text-head text-center">
+                <h5>Laporan Data Simpanan</h5>
+                <h3>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK)</h3>
+                <h3>Kelurahan Kalitirto, Berbah, Kabupaten Sleman</h3>
             </div>
+        </div>
+    </div>
 
-            <div class="container-body">
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID Anggota</th>
-                                <th>Nama Anggota</th>
-                                <th>Nominal Simpanan</th>
-                                <th>Tanggal Simpanan</th>
-                                <th>Status Simpanan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($savings as $saving)
-                                <tr>
-                                    <th>{{ $saving->author_id }}</th>
-                                    <td>{{ $saving->author_name }}</td>
-                                    <td>{{ $saving->nominal_uang }}</td>
-                                    <td>{{ $saving->created_at }}</td>
-                                    <td>{{ $saving->status }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Anggota</th>
+                    <th>Nama Anggota</th>
+                    <th>Nominal Simpanan</th>
+                    <th>Tanggal Simpanan</th>
+                    <th>Status Simpanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ID Anggota</td>
+                    <td>Nama Anggota</td>
+                    <td>Nominal Simpanan</td>
+                    <td>Tanggal Simpanan</td>
+                    <td>Status Simpanan</td>
+                    {{-- @foreach ($savings as $saving)
+                        <tr>
+                            <th>{{ $saving->author_id }}</th>
+                            <td>{{ $saving->author_name }}</td>
+                            <td>{{ $saving->nominal_uang }}</td>
+                            <td>{{ $saving->created_at }}</td>
+                            <td>{{ $saving->status }}</td>
+                        </tr>
+                        @endforeach --}}
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-            <div class="card-footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-8">
-                            <div class="text-center">
-                                <p>Yogyakarta, 7 Februari 2024</p>
-                                <p>Ketua PKK</p>
-                                <br>
-                                <br>
-                                <p>..........................................</p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="signature-text">
+                <div class="text-end">
+                    <p>Yogyakarta, 7 Februari 2024</p>
+                    <p>Ketua PKK</p>
+                    <br>
+                    <br>
+                    <br>
+                    <p>Eni Kusrini Amd.Kep</p>
                 </div>
             </div>
         </div>
