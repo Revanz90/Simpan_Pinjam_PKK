@@ -15,8 +15,15 @@ class CreditController extends Controller
 
     public function index()
     {
-        $credit = Pinjamans::all()->sortByDesc('created_at');
+        $user = Auth::user();
+        // dd($user->role);
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $credit = Pinjamans::all()->sortByDesc('created_at');
+        } else {
+            $credit = Pinjamans::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
         return view('layouts.data_pinjaman', ['datas' => $credit]);
+
     }
 
     public function store(Request $request)
@@ -25,7 +32,6 @@ class CreditController extends Controller
             $credit = new Pinjamans();
             $fileCredit = new CreditFile();
 
-            // Validasi yang wajib diinputkan pada request payloads
             $validated = $request->validate([
                 'nominal' => 'required',
                 'tanggal_transaksi' => 'required',

@@ -24,8 +24,6 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
                 <li class="nav-item {{ request()->routeIs('dashboard') ? 'menu-open' : '' }}">
                     <a href="{{ route('dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -51,7 +49,6 @@
                         </p>
                     </a>
                 </li>
-                {{-- @hasrole('super-admin|admin|kamus') --}}
                 <li class="nav-item {{ request()->routeIs('dataangsuran') ? 'menu-open' : '' }}">
                     <a href="{{ route('dataangsuran') }}" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
@@ -60,15 +57,16 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
-                    <a href="{{ route('dataanggota') }}" class="nav-link">
-                        <i class="nav-icon far fa-user"></i>
-                        <p>
-                            Data Anggota
-                        </p>
-                    </a>
-                </li>
-                {{-- @endhasrole --}}
+                @hasrole('admin|bendahara')
+                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
+                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Data Anggota
+                            </p>
+                        </a>
+                    </li>
+                @endhasrole
             </ul>
         </nav>
     </div>

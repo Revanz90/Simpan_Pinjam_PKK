@@ -14,7 +14,13 @@ class InstallmentController extends Controller
 {
     public function index()
     {
-        $installment = Angsuran::all()->sortByDesc('created_at');
+        $user = Auth::user();
+        // dd($user->role);
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $installment = Angsuran::all()->sortByDesc('created_at');
+        } else {
+            $installment = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
         return view('layouts.data_angsuran', ['datas' => $installment]);
     }
 

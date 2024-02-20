@@ -70,7 +70,6 @@ class DetailDataPinjamanController extends Controller
 
                 return redirect()->back()->with('success', 'Pinjaman Ini Diterima');
             } catch (\Throwable $th) {
-                dd($th);
                 return redirect()->back()->with('error', 'Pinjaman Ini Ditolak');
             }
         }
