@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Kartu SPP</title>
+    <title>Cetak Laporan Simpanan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,13 +17,16 @@
 
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 1rem;
         }
 
         .header-text {
+            place-items: center;
             text-align: center;
+            margin-top: 1.6rem;
+            margin-bottom: 1.6rem;
             margin-left: 10px;
         }
 
@@ -95,12 +98,15 @@
 <body>
     <!-- Header Content -->
     <header class="header">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/Logo-PKK.png'))) }}"
-            alt="Logo SMK" name="logo-smk-yapemda" class="brand-image img-circle elevation-3">
-        <div class="header-text">
-            <p><strong>Sistem Informasi Simpan Pinjam</strong></p>
-            <p><strong>Pemberdayaan Kesejahteraan Keluarga (PKK)</strong></p>
-            <p><strong>Kelurahan Kalitirto, Berbah, Sleman</strong></p>
+        <div class="d-flex">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/Logo-PKK.png'))) }}"
+                alt="Logo SMK" name="logo-smk-yapemda" class="brand-image img-circle elevation-3">
+            <div class="header-text">
+                <p><strong>Sistem Informasi Simpan Pinjam</strong></p>
+                <p><strong>Pemberdayaan Kesejahteraan Keluarga (PKK)</strong></p>
+                <p><strong>Kelurahan Kalitirto, Berbah, Sleman</strong></p>
+            </div>
+
         </div>
     </header>
 
