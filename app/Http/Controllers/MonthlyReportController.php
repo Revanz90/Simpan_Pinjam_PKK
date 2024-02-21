@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Simpanan;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MonthlyReportController extends Controller
@@ -73,8 +74,8 @@ class MonthlyReportController extends Controller
     {
         $savings = Simpanan::all();
         $pdf = Pdf::loadView('pdf.export_simpanan', ['savings' => $savings]);
-        // return $pdf->download('laporan-simpanan' . Carbon::now()->timestamp . '.pdf');
-        return view('pdf.export_simpanan');
+        return $pdf->download('laporan-simpanan' . Carbon::now()->timestamp . '.pdf');
+        // return view('pdf.export_simpanan');
 
     }
 }
