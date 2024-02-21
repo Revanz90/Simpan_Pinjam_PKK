@@ -7,105 +7,169 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Laporan Data Simpanan</title>
+    <title>Kartu Simpanan</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
         .header {
+            position: relative;
+            /* Set header to relative positioning */
+            /* padding-top: 3rem; */
+        }
+
+        .header-content {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
+            flex-direction: column;
+            gap: 0.5rem;
+            /* Add space between image and text */
         }
 
         .header img {
-            width: 50px;
-            margin-right: 10px;
+            position: absolute;
+            /* Set image to absolute positioning */
+            top: 0;
+            left: 0;
+            opacity: 0.8;
+            z-index: -1;
+            /* Move the image behind the content */
         }
 
-        .header h3,
-        h5 {
-            font-size: 1.5em;
+        .header-text p {
+            text-align: center;
+            margin-top: 1rem;
+            /* Remove default top margin */
+            margin-bottom: 1rem;
+            /* Remove default bottom margin */
+        }
+
+        .brand-image {
+            max-width: 150px;
+        }
+
+        .title {
+            text-align: center;
+            padding-top: 2rem;
+        }
+
+        .title-container {
+            text-align: center;
         }
 
         .content {
+            display: flex;
+            justify-content: left;
+        }
+
+        .student-info {
+            margin-right: 1rem;
+        }
+
+        .student-info p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .table-container {
+            padding-top: 2rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
             text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Additional styling to ensure proper PDF rendering */
-        body {
-            font-size: 12px;
-        }
-
-        .table th,
-        .table td {
+            padding: 8px;
             vertical-align: middle;
+        }
+
+        .signature {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 1.5rem;
+        }
+
+        .signature-content {
+            text-align: center;
+        }
+
+        .signature p {
+            margin: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid black;
         }
     </style>
 </head>
 
 <body>
-    <div class="mt-3" id="monthly-report">
-        <div class="header">
-            <img src="img/Logo-PKK.png" alt="Logo-PKK">
-            <div class="text-head text-center">
-                <h5>Laporan Data Simpanan</h5>
-                <h3>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK)</h3>
-                <h3>Kelurahan Kalitirto, Berbah, Kabupaten Sleman</h3>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-text">
+                <p><strong>Sistem Informasi Simpan Pinjam</strong></p>
+                <p><strong>Pemberdayaan Kesejahteraan Keluarga (PKK)</strong></p>
+                <p><strong>Kelurahan Kalitirto, Berbah, Sleman</strong></p>
             </div>
+        </div>
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/Logo-PKK.png'))) }}"
+            alt="Logo SMK" name="logo-smk-yapemda" class="brand-image img-circle elevation-3">
+        <hr>
+    </header>
+
+    <!-- Title -->
+    <div class="title">
+        <div class="title-container">
+            <p><strong>Laporan Simpanan Bulanan</strong></p>
         </div>
     </div>
 
-    <div class="container">
-        <table class="table table-striped">
+    <!-- Table Content -->
+    <div class="table-container">
+        <table id="examplePolos" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID Anggota</th>
                     <th>Nama Anggota</th>
-                    <th>Nominal Simpanan</th>
-                    <th>Tanggal Simpanan</th>
-                    <th>Status Simpanan</th>
+                    <th>Nominal</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>ID Anggota</td>
-                    <td>Nama Anggota</td>
-                    <td>Nominal Simpanan</td>
-                    <td>Tanggal Simpanan</td>
-                    <td>Status Simpanan</td>
-                    {{-- @foreach ($savings as $saving)
-                        <tr>
-                            <th>{{ $saving->author_id }}</th>
-                            <td>{{ $saving->author_name }}</td>
-                            <td>{{ $saving->nominal_uang }}</td>
-                            <td>{{ $saving->created_at }}</td>
-                            <td>{{ $saving->status }}</td>
-                        </tr>
-                        @endforeach --}}
-                </tr>
+                @foreach ($savings as $saving)
+                    <tr>
+                        <th>{{ $saving->author_id }}</th>
+                        <td>{{ $saving->author_name }}</td>
+                        <td>{{ $saving->nominal_uang }}</td>
+                        <td>{{ $saving->tanggal_transfer }}</td>
+                        <td>{{ $saving->status }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
+        <p><strong>Catatan : Jatuh tempo PEMBAYARAN paling lambat Tanggal 10 tiap bulan</strong></p>
     </div>
 
-    <div class="footer">
-        <div class="container">
-            <div class="signature-text">
-                <div class="text-end">
-                    <p>Yogyakarta, 7 Februari 2024</p>
-                    <p>Ketua PKK</p>
-                    <br>
-                    <br>
-                    <br>
-                    <p>Eni Kusrini Amd.Kep</p>
-                </div>
-            </div>
+    <!-- Signature -->
+    <div class="signature mb-3">
+        <div class="signature-content">
+            <p><strong>Yogyakarta, 18 Februari 2024</strong></p>
+            <p><strong>Ketua PKK,</strong></p>
+            <br><br><br>
+            <p><strong>Eni Kusrini Amd.Kep</strong></p>
         </div>
     </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
 </body>
 
 </html>

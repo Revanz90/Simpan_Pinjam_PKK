@@ -75,7 +75,5 @@ class MonthlyReportController extends Controller
         $savings = Simpanan::all();
         $pdf = Pdf::loadView('pdf.export_simpanan', ['savings' => $savings]);
         return $pdf->download('laporan-simpanan' . Carbon::now()->timestamp . '.pdf');
-        // return view('pdf.export_simpanan');
-
     }
 }
