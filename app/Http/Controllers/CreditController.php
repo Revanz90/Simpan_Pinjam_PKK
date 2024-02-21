@@ -16,7 +16,6 @@ class CreditController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // dd($user->role);
         if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
             $credit = Pinjamans::all()->sortByDesc('created_at');
         } else {
@@ -29,6 +28,12 @@ class CreditController extends Controller
     public function store(Request $request)
     {
         try {
+            // Cek apakah pengguna telah memiliki pinjaman yang belum lunas
+            $existingLoan = Pinjamans::where('author_id', Auth::id())->where('status_credit', '!=', 'lunas')->first();
+            if ($existingLoan) {
+                return redirect()->back()->with('error', 'Anda memiliki pinjaman yang belum lunas, tolong lunasi pinjaman sebelumnya untuk melakukan pinjaman baru!');
+            }
+
             $credit = new Pinjamans();
             $fileCredit = new CreditFile();
 
@@ -60,7 +65,6 @@ class CreditController extends Controller
 
             return redirect()->back()->with('success', 'Berhasil menambahkan Pinjaman');
         } catch (\Throwable $th) {
-            // dd($th);
             return redirect()->back()->with('error', 'Gagal menambahkan Pinjaman');
         }
     }
