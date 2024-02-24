@@ -83,6 +83,14 @@
                                         </i>
                                         Lihat
                                     </a>
+                                    <form action="{{ route('delete_simpanan', ['id' => $data->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-danger btn-xs text-center d-flex flex-column align-items-stretch mt-1">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

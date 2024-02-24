@@ -30,7 +30,6 @@ class DataAnggotaController extends Controller
             $member->alamat_anggota = $request->input('alamat_anggota');
             $member->jenis_kelamin = $request->input('jenis_kelamin');
             $member->save();
-            // dd($member);
 
             return redirect()->back()->with('success', 'Berhasil menambahkan anggota');
 
@@ -38,5 +37,13 @@ class DataAnggotaController extends Controller
             //throw $th;
             return redirect()->back()->with('error', 'Gagal menambahkan anggota');
         }
+    }
+
+    public function delete($id)
+    {
+        $member = Anggota::findOrFail($id);
+        $member->delete();
+        // dd($saving);
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

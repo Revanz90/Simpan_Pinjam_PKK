@@ -74,6 +74,14 @@
                                         </i>
                                         Lihat
                                     </a>
+                                    <form action="{{ route('delete_angsuran', ['id' => $data->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-danger btn-xs text-center d-flex flex-column align-items-stretch mt-1">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -161,7 +169,8 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     <div class="btn-savechange-reset">
                         <button type="reset" class="btn btn-sm btn-warning" style="margin-right: 5px">Reset</button>
-                        <button type="submit" form="angsuranform" value="Submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" form="angsuranform" value="Submit"
+                            class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </div>

@@ -55,6 +55,7 @@
                             <th>ID Anggota</th>
                             <th>Alamat Anggota</th>
                             <th>Jenis Kelamin</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +65,16 @@
                                 <td>{{ $data->id_anggota }}</td>
                                 <td>{{ $data->alamat_anggota }}</td>
                                 <td>{{ $data->jenis_kelamin }}</td>
+                                <td>
+                                    <form action="{{ route('delete_anggota', ['id' => $data->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-danger btn-xs text-center d-flex flex-column align-items-stretch mt-1">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
