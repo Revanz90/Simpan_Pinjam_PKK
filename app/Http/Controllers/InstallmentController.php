@@ -113,4 +113,12 @@ class InstallmentController extends Controller
         $data->status = 'disimpan';
         $data->save();
     }
+
+    public function delete($id)
+    {
+        $installment = Angsuran::findOrFail($id);
+        $installment->delete();
+        // dd($saving);
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
+    }
 }

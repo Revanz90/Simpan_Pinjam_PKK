@@ -69,4 +69,11 @@ class CreditController extends Controller
         }
     }
 
+    public function delete($id)
+    {
+        $credit = Pinjamans::findOrFail($id);
+        $credit->delete();
+        // dd($saving);
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
+    }
 }
