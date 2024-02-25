@@ -13,7 +13,6 @@ class SavingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // dd($user->role);
         if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
             $saving = Simpanan::all()->sortByDesc('created_at');
         } else {
@@ -57,7 +56,6 @@ class SavingController extends Controller
 
             return redirect()->back()->with('success', 'Berhasil menambahkan Simpanan');
         } catch (\Throwable $th) {
-            // dd($th);
             return redirect()->back()->with('error', 'Gagal menambahkan Simpanan');
         }
     }
@@ -67,7 +65,13 @@ class SavingController extends Controller
         $data = Simpanan::find($id);
         $data->status = 'disimpan';
         $data->save();
+    }
 
-        // return redirect()->route('ditakahkan')->with('success', 'Berhasil Diterima');
+    public function delete($id)
+    {
+        $saving = Simpanan::findOrFail($id);
+        $saving->delete();
+        // dd($saving);
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

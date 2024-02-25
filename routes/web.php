@@ -41,9 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/data_simpanan', [SavingController::class, 'index'])->name('datasimpanan');
     Route::post('/data_simpanan', [SavingController::class, 'store'])->name('storedatasimpanan');
     Route::get('/{id}/detail_datasimpanan', [DetailDataSimpananController::class, 'index'])->name('detail_datasimpanan');
+    Route::delete('/{id}/data_simpanan', [SavingController::class, 'delete'])->name('delete_simpanan');
 
     Route::get('/data_pinjaman', [CreditController::class, 'index'])->name('datapinjaman');
     Route::post('/data_pinjaman', [CreditController::class, 'store'])->name('storedatapinjaman');
+    Route::delete('/{id}/data_pinjaman', [CreditController::class, 'delete'])->name('delete_pinjaman');
 
     Route::get('/{id}/detail_datapinjaman', [DetailDataPinjamanController::class, 'index'])->name('detail_datapinjaman');
     Route::post('/{id}/detail_datapinjaman', [DetailDataPinjamanController::class, 'store_review'])->name('store_reviewpinjaman');
@@ -52,9 +54,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/{id}/store_angsuran_pinjaman', [InstallmentController::class, 'store_installment'])->name('store_dataangsuran');
     Route::get('/data_angsuran', [InstallmentController::class, 'index'])->name('dataangsuran');
     Route::get('/{id}/detail_dataangsuran', [DetailDataAngsuranController::class, 'index'])->name('detail_dataangsuran');
+    Route::delete('/{id}/data_angsuran', [InstallmentController::class, 'delete'])->name('delete_angsuran');
 
     Route::get('/data_anggota', [DataAnggotaController::class, 'index'])->name('dataanggota');
     Route::post('/data_anggota', [DataAnggotaController::class, 'store'])->name('storedataanggota');
+    Route::delete('/{id}/data_anggota', [DataAnggotaController::class, 'delete'])->name('delete_anggota');
 
     Route::get('/laporan_simpanan', [MonthlyReportController::class, 'index'])->name('laporan_simpanan');
     Route::get('/export_simpanan', [MonthlyReportController::class, 'exportPdf'])->name('export_simpanan');

@@ -7,79 +7,169 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Laporan Data Angsuran</title>
+    <title>Kartu Angsuran</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            position: relative;
+            /* Set header to relative positioning */
+            /* padding-top: 3rem; */
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            /* Add space between image and text */
+        }
+
+        .header img {
+            position: absolute;
+            /* Set image to absolute positioning */
+            top: 0;
+            left: 0;
+            opacity: 0.8;
+            z-index: -1;
+            /* Move the image behind the content */
+        }
+
+        .header-text p {
+            text-align: center;
+            margin-top: 1rem;
+            /* Remove default top margin */
+            margin-bottom: 1rem;
+            /* Remove default bottom margin */
+        }
+
+        .brand-image {
+            max-width: 150px;
+        }
+
+        .title {
+            text-align: center;
+            padding-top: 2rem;
+        }
+
+        .title-container {
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            justify-content: left;
+        }
+
+        .student-info {
+            margin-right: 1rem;
+        }
+
+        .student-info p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .table-container {
+            padding-top: 2rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+            vertical-align: middle;
+        }
+
+        .signature {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 1.5rem;
+        }
+
+        .signature-content {
+            text-align: center;
+        }
+
+        .signature p {
+            margin: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid black;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container-fluid mt-3">
-        <div class="card" id="monthly-report">
-            <div class="card-header">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container col-md-10">
-                        <div class="text-head text-center">
-                            <a class="navbar-brand" href="#">
-                                <img src="img/Logo-PKK.png" width="20%" alt="Logo-PKK">
-                            </a>
-                        </div>
-                        <div class="text-center col-md-8">
-                            <h3>Laporan Data Angsuran</h3>
-                            <h6>Simpan Pinjam Pemberdayaan Kesejahteraan Keluarga (PKK) Kelurahan Kalitirto, Berbah,
-                                Sleman
-                            </h6>
-                        </div>
-                    </div>
-                </nav>
-            </div>
 
-            <div class="container-body">
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID Anggota</th>
-                                <th>Nama Anggota</th>
-                                <th>Nominal Angsuran</th>
-                                <th>Tanggal Angsuran</th>
-                                <th>Status Angsuran</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($installment as $installments)
-                                <tr>
-                                    <th>{{ $installments->author_id }}</th>
-                                    <td>{{ $installments->author_name }}</td>
-                                    <td>{{ $installments->nominal_angsuran }}</td>
-                                    <td>{{ $installments->tanggal_transfer }}</td>
-                                    <td>{{ $installments->status }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-text">
+                <p><strong>Sistem Informasi Simpan Pinjam</strong></p>
+                <p><strong>Pemberdayaan Kesejahteraan Keluarga (PKK)</strong></p>
+                <p><strong>Kelurahan Kalitirto, Berbah, Sleman</strong></p>
             </div>
+        </div>
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('img/Logo-PKK.png'))) }}"
+            alt="Logo SMK" name="logo-smk-yapemda" class="brand-image img-circle elevation-3">
+        <hr>
+    </header>
 
-            <div class="card-footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 offset-md-8">
-                            <div class="text-center">
-                                <p>Yogyakarta, 7 Februari 2024</p>
-                                <p>Ketua PKK</p>
-                                <br>
-                                <br>
-                                <p>..........................................</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Title -->
+    <div class="title">
+        <div class="title-container">
+            <p><strong>Laporan Angsuran Bulanan</strong></p>
         </div>
     </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+    <!-- Table Content -->
+    <div class="table-container">
+        <table id="examplePolos" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID Anggota</th>
+                    <th>Nama Anggota</th>
+                    <th>Nominal Angsuran</th>
+                    <th>Tanggal Angsuran</th>
+                    <th>Status Angsuran</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($installment as $installments)
+                    <tr>
+                        <th>{{ $installments->author_id }}</th>
+                        <td>{{ $installments->author_name }}</td>
+                        <td>{{ $installments->nominal_angsuran }}</td>
+                        <td>{{ $installments->tanggal_transfer }}</td>
+                        <td>{{ $installments->status }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <p><strong>Catatan : Jatuh tempo PEMBAYARAN paling lambat Tanggal 10 tiap bulan</strong></p>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature mb-3">
+        <div class="signature-content">
+            <p><strong>Yogyakarta, 18 Februari 2024</strong></p>
+            <p><strong>Ketua PKK,</strong></p>
+            <br><br><br>
+            <p><strong>Eni Kusrini Amd.Kep</strong></p>
+        </div>
+    </div>
+
 </body>
 
 </html>
