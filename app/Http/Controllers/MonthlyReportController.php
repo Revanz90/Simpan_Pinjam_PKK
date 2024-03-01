@@ -6,6 +6,7 @@ use App\Models\Simpanan;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MonthlyReportController extends Controller
 {
@@ -65,15 +66,26 @@ class MonthlyReportController extends Controller
 
         }
 
-        $savings = $querySavingMonth->get();
+        $saving = $querySavingMonth->get();
 
-        return view('layouts.laporan_simpanan', compact('savings'));
+        $user = Auth::user();
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $saving = Simpanan::all()->sortByDesc('created_at');
+        } else {
+            $saving = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+        return view('layouts.laporan_simpanan', ['datas' => $saving]);
     }
 
     public function exportPdf()
     {
-        $savings = Simpanan::all();
-        $pdf = Pdf::loadView('pdf.export_simpanan', ['savings' => $savings]);
+        $user = Auth::user();
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $saving = Simpanan::all()->sortByDesc('created_at');
+        } else {
+            $saving = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+        $pdf = Pdf::loadView('pdf.export_simpanan', ['datas' => $saving]);
         return $pdf->download('laporan-simpanan' . Carbon::now()->timestamp . '.pdf');
     }
 }

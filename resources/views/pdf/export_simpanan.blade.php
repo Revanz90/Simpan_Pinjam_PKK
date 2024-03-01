@@ -146,13 +146,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($savings as $saving)
+                @foreach ($datas as $saving => $data)
                     <tr>
-                        <th>{{ $saving->author_id }}</th>
-                        <td>{{ $saving->author_name }}</td>
-                        <td>{{ $saving->nominal_uang }}</td>
-                        <td>{{ $saving->tanggal_transfer }}</td>
-                        <td>{{ $saving->status }}</td>
+                        <th>{{ $data->author_id }}</th>
+                        <td>{{ $data->author_name }}</td>
+                        <td>{{ $data->nominal_uang }}</td>
+                        <td>{{ $data->tanggal_transfer }}</td>
+                        <td>{{ $data->status }}</td>
                     </tr>
                 @endforeach
             </tbody>

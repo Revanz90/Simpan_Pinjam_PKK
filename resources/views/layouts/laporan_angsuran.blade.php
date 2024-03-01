@@ -162,13 +162,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($installments as $installment)
+                @foreach ($datas as $installment => $data)
                     <tr>
-                        <th>{{ $installment->author_id }}</th>
-                        <td>{{ $installment->author_name }}</td>
-                        <td>{{ $installment->nominal_angsuran }}</td>
-                        <td>{{ $installment->tanggal_transfer }}</td>
-                        <td>{{ $installment->status }}</td>
+                        <th>{{ $data->author_id }}</th>
+                        <td>{{ $data->author_name }}</td>
+                        <td>{{ $data->nominal_angsuran }}</td>
+                        <td>{{ $data->tanggal_transfer }}</td>
+                        <td>{{ $data->status }}</td>
                     </tr>
                 @endforeach
             </tbody>
