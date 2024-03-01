@@ -6,6 +6,7 @@ use App\Models\Pinjamans;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanPinjamanController extends Controller
 {
@@ -67,13 +68,24 @@ class LaporanPinjamanController extends Controller
 
         $credits = $querySavingMonth->get();
 
-        return view('layouts.laporan_pinjaman', compact('credits'));
+        $user = Auth::user();
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $credits = Pinjamans::all()->sortByDesc('created_at');
+        } else {
+            $credits = Pinjamans::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+        return view('layouts.laporan_pinjaman', ['datas' => $credits]);
     }
 
     public function exportPdf()
     {
-        $credits = Pinjamans::all();
-        $pdf = Pdf::loadView('pdf.export_pinjaman', ['credits' => $credits]);
+        $user = Auth::user();
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $credit = Pinjamans::all()->sortByDesc('created_at');
+        } else {
+            $credit = Pinjamans::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+        $pdf = Pdf::loadView('pdf.export_pinjaman', ['datas' => $credit]);
         return $pdf->download('laporan-pinjaman' . Carbon::now()->timestamp . '.pdf');
     }
 }

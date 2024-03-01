@@ -146,13 +146,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($installment as $installments)
+                @foreach ($datas as $installment => $data)
                     <tr>
-                        <th>{{ $installments->author_id }}</th>
-                        <td>{{ $installments->author_name }}</td>
-                        <td>{{ $installments->nominal_angsuran }}</td>
-                        <td>{{ $installments->tanggal_transfer }}</td>
-                        <td>{{ $installments->status }}</td>
+                        <th>{{ $data->author_id }}</th>
+                        <td>{{ $data->author_name }}</td>
+                        <td>{{ $data->nominal_angsuran }}</td>
+                        <td>{{ $data->tanggal_transfer }}</td>
+                        <td>{{ $data->status }}</td>
                     </tr>
                 @endforeach
             </tbody>
