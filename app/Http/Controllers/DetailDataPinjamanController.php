@@ -49,6 +49,11 @@ class DetailDataPinjamanController extends Controller
                 $credit->loan_interest = 0.05;
                 $credit->penalty = 5000;
                 $credit->nominal_pinjaman = $credit->nominal_pinjaman + ($credit->nominal_pinjaman * $credit->loan_interest);
+                // Hitung total pembayaran setelah bunga ditambahkan
+                $total_pembayaran = $credit->nominal_pinjaman;
+                // Hitung jumlah cicilan per bulan
+                $jumlah_cicilan_per_bulan = $total_pembayaran / 6;
+                $credit->jumlah_cicilan_per_bulan = $jumlah_cicilan_per_bulan;
                 $credit->save();
 
                 $reviewcredit->no_nota = $request->input('no_nota');

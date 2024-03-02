@@ -73,6 +73,20 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label font-weight-normal">Jumlah Cicilan per
+                        Bulan (*6)</label>
+                    <div class="col-sm-10">
+                        @if ($data->jumlah_cicilan_per_bulan > 0)
+                            <input type="text" name="" class="form-control"
+                                value="{{ $data->jumlah_cicilan_per_bulan }}" readonly>
+                        @else
+                            <input type="text" name="" class="form-control" value="0" readonly>
+                            <p class="text-muted">Belum ada angsuran yang ditambahkan.</p>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label font-weight-normal">Tanggal pinjaman</label>
                     <div class="col-sm-10">
                         <input type="text" name="" class="form-control" value="{{ $data->tanggal_pinjaman }}"
