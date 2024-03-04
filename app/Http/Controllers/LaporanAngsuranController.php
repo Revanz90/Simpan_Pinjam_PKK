@@ -6,6 +6,7 @@ use App\Models\Angsuran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanAngsuranController extends Controller
 {
@@ -67,13 +68,25 @@ class LaporanAngsuranController extends Controller
 
         $installments = $querySavingMonth->get();
 
-        return view('layouts.laporan_angsuran', compact('installments'));
+        $user = Auth::user();
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $installments = Angsuran::all()->sortByDesc('created_at');
+        } else {
+            $installments = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+        return view('layouts.laporan_angsuran', ['datas' => $installments]);
     }
 
     public function exportPdf()
     {
-        $installments = Angsuran::all();
-        $pdf = Pdf::loadView('pdf.export_angsuran', ['installment' => $installments]);
+        $user = Auth::user();
+        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+            $installment = Angsuran::all()->sortByDesc('created_at');
+        } else {
+            $installment = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        }
+
+        $pdf = Pdf::loadView('pdf.export_angsuran', ['datas' => $installment]);
         return $pdf->download('laporan-angsuran' . Carbon::now()->timestamp . '.pdf');
     }
 }

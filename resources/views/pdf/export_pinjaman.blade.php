@@ -146,13 +146,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($credits as $credit)
+                @foreach ($datas as $credit => $data)
                     <tr>
-                        <th>{{ $credit->author_id }}</th>
-                        <td>{{ $credit->author_name }}</td>
-                        <td>{{ $credit->nominal_pinjaman }}</td>
-                        <td>{{ $credit->tanggal_pinjaman }}</td>
-                        <td>{{ $credit->status_credit }}</td>
+                        <th>{{ $data->author_id }}</th>
+                        <td>{{ $data->author_name }}</td>
+                        <td>{{ $data->nominal_pinjaman }}</td>
+                        <td>{{ $data->tanggal_pinjaman }}</td>
+                        <td>{{ $data->status_credit }}</td>
                     </tr>
                 @endforeach
             </tbody>
