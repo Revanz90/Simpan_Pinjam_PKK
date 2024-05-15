@@ -13,7 +13,7 @@ class SavingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') || $user->hasRole('bendahara') || $user->hasRole('ketua')) {
             $saving = Simpanan::all()->sortByDesc('created_at');
         } else {
             $saving = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
@@ -71,7 +71,6 @@ class SavingController extends Controller
     {
         $saving = Simpanan::findOrFail($id);
         $saving->delete();
-        // dd($saving);
         return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

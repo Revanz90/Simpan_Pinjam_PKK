@@ -1,8 +1,8 @@
 @extends('main')
 
-@section('title', 'Simpanan')
-@section('title2', 'Simpanan')
-@section('judul', 'Simpanan')
+@section('title', 'Transaksi Simpanan')
+@section('title2', 'Transaksi Simpanan')
+@section('judul', 'Transaksi Simpanan')
 
 @section('page-js-files')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -14,7 +14,7 @@
         <div id="xtest" style="font-size: 14px"></div>
         <div class="callout callout-warning">
             <i class="fas fa-info-circle"></i>
-            Halaman untuk melihat dan menambah data simpanan
+            Halaman untuk melihat dan menambah data transaksi simpanan
         </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
@@ -33,7 +33,7 @@
         <div class="card">
             <!-- Navbar Content -->
             <div class="card-header">
-                <h4 class="card-title font-weight-bold">DATA SIMPANAN</h4>
+                <h4 class="card-title font-weight-bold">TRANSAKSI SIMPANAN</h4>
                 <div class="card-tools">
                     <input type="hidden" name="xnull" id="statusxid[2]" value="2">
                     <div class="project-actions text-center">
@@ -60,8 +60,8 @@
                             <th>Nominal Simpanan</th>
                             <th>Tanggal Transfer</th>
                             <th>Keterangan</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Status Simpanan</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>

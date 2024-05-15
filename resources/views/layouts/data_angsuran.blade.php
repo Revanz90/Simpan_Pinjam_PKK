@@ -1,8 +1,8 @@
 @extends('main')
 
-@section('title', 'Angsuran')
-@section('title2', 'Angsuran')
-@section('judul', 'Angsuran')
+@section('title', 'Transaksi Angsuran')
+@section('title2', 'Transaksi Angsuran')
+@section('judul', 'Transaksi Angsuran')
 
 @section('page-js-files')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -14,7 +14,7 @@
         <div id="xtest" style="font-size: 14px"></div>
         <div class="callout callout-warning">
             <i class="fas fa-info-circle"></i>
-            Halaman untuk melihat dan menambah data Angsuran
+            Halaman untuk melihat dan menambah data transaksi Angsuran
         </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
@@ -33,7 +33,7 @@
         <div class="card">
             <!-- Navbar Content -->
             <div class="card-header">
-                <h4 class="card-title font-weight-bold">DATA ANGSURAN</h4>
+                <h4 class="card-title font-weight-bold">TRANSAKSI ANGSURAN</h4>
                 <div class="card-tools">
                     <input type="hidden" name="xnull" id="statusxid[2]" value="2">
                     <div class="project-actions text-center">
@@ -56,7 +56,7 @@
                             <th>Nominal Angsuran</th>
                             <th>Tanggal Angsuran</th>
                             <th>Keterangan</th>
-                            <th>Action</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
