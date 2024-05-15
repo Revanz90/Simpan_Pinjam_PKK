@@ -1,8 +1,8 @@
 @extends('main')
 
-@section('title', 'Pinjaman')
-@section('title2', 'Pinjaman')
-@section('judul', 'Pinjaman')
+@section('title', 'Transaksi Pinjaman')
+@section('title2', 'Transaksi Pinjaman')
+@section('judul', 'Transaksi Pinjaman')
 
 @section('page-js-files')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -14,7 +14,7 @@
         <div id="xtest" style="font-size: 14px"></div>
         <div class="callout callout-warning">
             <i class="fas fa-info-circle"></i>
-            Halaman untuk melihat dan menambah data pinjaman
+            Halaman untuk melihat dan menambah data transaksi pinjaman
         </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
@@ -33,7 +33,7 @@
         <div class="card">
             <!-- Navbar Content -->
             <div class="card-header">
-                <h4 class="card-title font-weight-bold">DATA PINJAMAN</h4>
+                <h4 class="card-title font-weight-bold">TRANSAKSI PINJAMAN</h4>
                 <div class="card-tools">
                     <input type="hidden" name="xnull" id="statusxid[2]" value="2">
                     <div class="project-actions text-center">
@@ -62,7 +62,7 @@
                             <th>Tanggal Pinjaman</th>
                             <th>Keterangan</th>
                             <th>Status Pinjaman</th>
-                            <th>Action</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +89,7 @@
                                         href="{{ route('detail_nota', ['id' => $data->id]) }}">
                                         <i class="fas fa-folder">
                                         </i>
-                                        Nota
+                                        Verifikasi
                                     </a>
                                     <form action="{{ route('delete_pinjaman', ['id' => $data->id]) }}" method="POST">
                                         @csrf

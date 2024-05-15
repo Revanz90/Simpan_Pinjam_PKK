@@ -37,7 +37,7 @@
                     <a href="{{ route('datasimpanan') }}" class="nav-link">
                         <i class="nav-icon far fa-folder-open"></i>
                         <p>
-                            Data Simpanan
+                            Transaksi Simpanan
                         </p>
                     </a>
                 </li>
@@ -45,7 +45,7 @@
                     <a href="{{ route('datapinjaman') }}" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
                         <p>
-                            Data Pinjaman
+                            Transaksi Pinjaman
                         </p>
                     </a>
                 </li>
@@ -53,7 +53,7 @@
                     <a href="{{ route('dataangsuran') }}" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
                         <p>
-                            Data Angsuran
+                            Transaksi Angsuran
                         </p>
                     </a>
                 </li>

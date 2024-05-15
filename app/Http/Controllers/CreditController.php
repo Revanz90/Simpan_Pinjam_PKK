@@ -16,7 +16,7 @@ class CreditController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') || $user->hasRole('bendahara') || $user->hasRole('ketua')) {
             $credit = Pinjamans::all()->sortByDesc('created_at');
         } else {
             $credit = Pinjamans::where('author_id', $user->id)->get()->sortByDesc('created_at');

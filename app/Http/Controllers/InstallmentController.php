@@ -16,7 +16,7 @@ class InstallmentController extends Controller
     {
         $user = Auth::user();
         // dd($user->role);
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') || $user->hasRole('bendahara') || $user->hasRole('ketua')) {
             $installment = Angsuran::all()->sortByDesc('created_at');
         } else {
             $installment = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
