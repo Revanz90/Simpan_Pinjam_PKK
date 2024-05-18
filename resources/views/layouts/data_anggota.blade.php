@@ -137,6 +137,23 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group row">
+                                                    <label for=""
+                                                        class="col-sm-2 col-form-label font-weight-normal">Email
+                                                        Anggota</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="email_anggota" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for=""
+                                                        class="col-sm-2 col-form-label font-weight-normal">Password</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="password_anggota" class="form-control">
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group row" name="gender">
                                                     <label class="col-sm-2 col-form-label font-weight-normal">Jenis
                                                         Kelamin</label>
