@@ -33,6 +33,21 @@
                     </a>
                 </li>
                 <li class="nav-header">MAIN MENU</li>
+
+                @hasrole('admin|bendahara')
+                    <h1 class="nav-header">INPUT</li>
+
+                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
+                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Data Anggota
+                            </p>
+                        </a>
+                    </li>
+                @endhasrole
+
+                <h1 class="nav-header">PROSES</li>
                 <li class="nav-item {{ request()->routeIs('datasimpanan') ? 'menu-open' : '' }}">
                     <a href="{{ route('datasimpanan') }}" class="nav-link">
                         <i class="nav-icon far fa-folder-open"></i>
@@ -57,16 +72,36 @@
                         </p>
                     </a>
                 </li>
+
                 @hasrole('admin|bendahara')
+                    <h1 class="nav-header">OUTPUT</li>
+
                     <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
                         <a href="{{ route('dataanggota') }}" class="nav-link">
-                            <i class="nav-icon far fa-user"></i>
+                            <i class="nav-icon fas fa-book"></i>
                             <p>
-                                Data Anggota
+                                Laporan Simpanan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
+                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Laporan Pinjaman
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
+                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>
+                                Laporan Angsuran
                             </p>
                         </a>
                     </li>
                 @endhasrole
+                
             </ul>
         </nav>
     </div>

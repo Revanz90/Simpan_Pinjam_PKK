@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('id_anggota');
             $table->string('alamat_anggota');
             $table->string('jenis_kelamin');
+            $table->unsignedBigInteger('id_user');
             $table->timestamps();
-
         });
     }
 
