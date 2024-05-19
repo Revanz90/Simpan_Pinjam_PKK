@@ -8,6 +8,7 @@ use App\Models\ReviewCredit;
 use App\Models\ReviewCreditFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class DetailDataPinjamanController extends Controller
@@ -121,5 +122,59 @@ class DetailDataPinjamanController extends Controller
             }
         }
 
+    }
+
+    public function ubahpinjamindex($id)
+    {
+        $credit = Pinjamans::find($id);
+        $creditfile = CreditFile::where('id_credits', $credit->id)->first();
+        return view('layouts.edit_data_pinjaman', ['data' => $credit, 'creditfile' => $creditfile]); 
+    }
+
+    public function updatepinjaman(Request $request){
+        try {
+            // Begin a database transaction
+            DB::beginTransaction();
+
+            $validated = $request->validate([
+                'nominal_pinjaman' => 'required',
+                'tanggal_pinjaman' => 'required',
+                'keterangan' => 'required',
+                'upload_bukti' => 'required',
+            ]);
+
+            $pinjaman = Pinjamans::findOrFail($request->pinjaman_id);
+            $filepinjaman = CreditFile::findOrFail($request->filepinjaman_id);
+
+            $pinjaman->nominal_pinjaman = $request->input('nominal_pinjaman');
+            $pinjaman->tanggal_pinjaman = $request->input('tanggal_pinjaman');
+            $pinjaman->keterangan = $request->input('keterangan');
+            $pinjaman->save();
+
+            // Melakukan pengecekan jika inputan memiliki File
+            if ($request->hasFile('upload_bukti')) {
+                $directory = 'files';
+                $fileName = $request->file('upload_bukti');
+
+                // Menyimpan data pada storage local
+                $pathFile = Storage::disk('public')->put($directory, $fileName);
+
+                // Menyimpan File pada database File Data Pinjaman
+                $filepinjaman->files = $pathFile;
+                $filepinjaman->id_credits = $pinjaman->id;
+                $filepinjaman->save();
+            }
+
+            // Commit the database transaction if everything is successful
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Berhasil merubah data simpanan');
+        } catch (\Throwable $th) {
+            dd($th);
+            // An error occurred, rollback the database transaction
+            DB::rollback();
+            
+            return redirect()->back()->with('error', 'Gagal merubah data simpanan');
+        }
     }
 }

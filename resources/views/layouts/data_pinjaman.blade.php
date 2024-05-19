@@ -79,26 +79,33 @@
                                         {{ Str::ucfirst($data->status_credit) }}</div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch"
-                                        href=" {{ route('detail_datapinjaman', ['id' => $data->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        Lihat
-                                    </a>
-                                    <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch mt-1"
-                                        href="{{ route('detail_nota', ['id' => $data->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        Verifikasi
-                                    </a>
-                                    <form action="{{ route('delete_pinjaman', ['id' => $data->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="btn btn-danger btn-xs text-center d-flex flex-column align-items-stretch mt-1">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
+                                    <div class="d-flex flex-column">
+                                        <a class="btn btn-info btn-sm"
+                                            href=" {{ route('detail_datapinjaman', ['id' => $data->id]) }}">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            Lihat
+                                        </a>
+                                        <a class="btn btn-info btn-sm mt-1"
+                                            href="{{ route('detail_nota', ['id' => $data->id]) }}">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            Verifikasi
+                                        </a>
+                                        <a class="btn btn-secondary btn-sm mt-1"
+                                            href=" {{ route('ubahpinjamindex', ['id' => $data->id]) }}">
+                                            <i class="fas fa-edit"></i>
+                                            Ubah
+                                        </a>
+                                        <form action="{{ route('delete_pinjaman', ['id' => $data->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="btn btn-danger btn-sm mt-1">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
