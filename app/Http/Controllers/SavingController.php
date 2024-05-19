@@ -6,6 +6,7 @@ use App\Models\SavingFile;
 use App\Models\Simpanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class SavingController extends Controller
@@ -24,6 +25,9 @@ class SavingController extends Controller
     public function store(Request $request)
     {
         try {
+            // Begin a database transaction
+            DB::beginTransaction();
+
             $saving = new Simpanan();
             $fileSaving = new SavingFile();
 
@@ -44,18 +48,26 @@ class SavingController extends Controller
 
             // Melakukan pengecekan jika inputan memiliki File
             if ($request->hasFile('upload_bukti')) {
-                $fileName = $request->upload_bukti->getClientOriginalName();
+                $directory = 'files';
+                $fileName = $request->file('upload_bukti');
 
                 // Menyimpan data pada storage local
-                Storage::putFileAs('public/files', $request->upload_bukti, $fileName);
+                $pathFile = Storage::disk('public')->put($directory, $fileName);
+
                 // Menyimpan File pada database File Data Simpanan
-                $fileSaving->files = $fileName;
+                $fileSaving->files = $pathFile;
                 $fileSaving->id_savings = $saving->id;
                 $fileSaving->save();
             }
 
+            // Commit the database transaction
+            DB::commit();
+            
             return redirect()->back()->with('success', 'Berhasil menambahkan Simpanan');
         } catch (\Throwable $th) {
+            // An error occurred, rollback the database transaction
+            DB::rollback();
+
             return redirect()->back()->with('error', 'Gagal menambahkan Simpanan');
         }
     }
