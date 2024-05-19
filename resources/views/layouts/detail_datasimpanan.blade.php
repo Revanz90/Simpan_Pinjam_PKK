@@ -17,7 +17,6 @@
                 <input type="hidden" name="statusM" id="statusMid[2]" value="2">
             </div>
         </div>
-        {{-- @foreach ($datadetailsm as $data) --}}
         <div class="card-body">
             <form action="" class="form-horizontal">
 
@@ -42,15 +41,15 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label font-weight-normal">Tanggal Transfer</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="" class="form-control" value="{{ $data->tanggal_transfer }}"
+                    <div class="col-sm-10">                  
+                        <input type="date" name="tanggal_transfer" class="form-control" value="{{ $data->tanggal_transfer ? \Carbon\Carbon::parse($data->tanggal_transfer)->format('Y-m-d') : '' }}"
                             readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label font-weight-normal">Keterangan</label>
                     <div class="col-sm-10">
-                        <textarea type="text" name="" class="form-control text-bold" readonly>{{ $data->keterangan }}</textarea>
+                        <textarea type="text" name="" class="form-control" readonly>{{ $data->keterangan }}</textarea>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -60,6 +59,7 @@
                             frameborder="0" width="100%" height="780">
                     </div>
                 </div>
+
             </form>
         </div>
     </div>

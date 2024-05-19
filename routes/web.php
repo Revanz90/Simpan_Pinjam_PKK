@@ -39,8 +39,10 @@ Route::get('akun', [AkunController::class, 'akun'])->name('akun');
 Route::middleware('auth')->group(function () {
 
     Route::get('/data_simpanan', [SavingController::class, 'index'])->name('datasimpanan');
-    Route::post('/data_simpanan', [SavingController::class, 'store'])->name('storedatasimpanan');
     Route::get('/{id}/detail_datasimpanan', [DetailDataSimpananController::class, 'index'])->name('detail_datasimpanan');
+    Route::get('/{id}/ubah_datasimpanan', [DetailDataSimpananController::class, 'indexubah'])->name('ubah_detail_datasimpanan');
+    Route::post('/data_simpanan', [SavingController::class, 'store'])->name('storedatasimpanan');
+    Route::post('/ubah_data_simpanan', [DetailDataSimpananController::class, 'updatesimpanan'])->name('updatedatasimpanan');
     Route::delete('/{id}/data_simpanan', [SavingController::class, 'delete'])->name('delete_simpanan');
 
     Route::get('/data_pinjaman', [CreditController::class, 'index'])->name('datapinjaman');

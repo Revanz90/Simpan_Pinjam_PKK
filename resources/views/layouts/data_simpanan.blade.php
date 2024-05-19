@@ -70,27 +70,33 @@
                                 <td>{{ $data->author_id }}</td>
                                 <td>{{ $data->author_name }}</td>
                                 <td>{{ $data->nominal_uang }}</td>
-                                <td>{{ $data->tanggal_transfer }}</td>
+                                <td>{{ \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') }}</td>
                                 <td>{{ $data->keterangan }}</td>
                                 <td class="text-center d-flex flex-column align-items-stretch" style="gap: 4px">
                                     <div class="btn btn-xs btn-primary {{ $data->status_saving_masuk }}">
                                         {{ Str::ucfirst($data->status) }}</div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch"
-                                        href=" {{ route('detail_datasimpanan', ['id' => $data->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        Lihat
-                                    </a>
-                                    <form action="{{ route('delete_simpanan', ['id' => $data->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="btn btn-danger btn-xs text-center d-flex flex-column align-items-stretch mt-1">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
+                                    <div class="d-flex flex-column">
+                                        <a class="btn btn-info btn-sm"
+                                            href=" {{ route('detail_datasimpanan', ['id' => $data->id]) }}">
+                                            <i class="fas fa-folder"></i>
+                                            Lihat
+                                        </a>
+                                        <a class="btn btn-secondary btn-sm mt-1"
+                                            href=" {{ route('ubah_detail_datasimpanan', ['id' => $data->id]) }}">
+                                            <i class="fas fa-edit"></i>
+                                            Ubah
+                                        </a>
+                                        <form action="{{ route('delete_simpanan', ['id' => $data->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm mt-1">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                         @endforeach
@@ -100,7 +106,7 @@
         </div>
     </section>
 
-    <!-- Modal Surat Masuk -->
+    <!-- Modal Tambah Simpanan -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog" style="max-width: 80%">
             <div class="modal-content">
