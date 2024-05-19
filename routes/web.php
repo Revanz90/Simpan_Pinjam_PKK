@@ -48,7 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/data_pinjaman', [CreditController::class, 'index'])->name('datapinjaman');
     Route::post('/data_pinjaman', [CreditController::class, 'store'])->name('storedatapinjaman');
     Route::delete('/{id}/data_pinjaman', [CreditController::class, 'delete'])->name('delete_pinjaman');
-
+    Route::get('/{id}/ubahdata_pinjaman', [DetailDataPinjamanController::class, 'ubahpinjamindex'])->name('ubahpinjamindex');
+    Route::post('/ubahdata_pinjaman', [DetailDataPinjamanController::class, 'updatepinjaman'])->name('update_pinjaman');
     Route::get('/{id}/detail_datapinjaman', [DetailDataPinjamanController::class, 'index'])->name('detail_datapinjaman');
     Route::post('/{id}/detail_datapinjaman', [DetailDataPinjamanController::class, 'store_review'])->name('store_reviewpinjaman');
     Route::get('/{id}/detail_nota', [DetailNotaController::class, 'index'])->name('detail_nota');

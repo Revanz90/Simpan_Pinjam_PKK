@@ -53,12 +53,14 @@ class CreditController extends Controller
 
             // Melakukan pengecekan jika inputan memiliki File
             if ($request->hasFile('upload_bukti')) {
-                $fileName = $request->upload_bukti->getClientOriginalName();
+                $directory = 'files';
+                $fileName = $request->file('upload_bukti');
 
                 // Menyimpan data pada storage local
-                Storage::putFileAs('public/files', $request->upload_bukti, $fileName);
+                $pathFile = Storage::disk('public')->put($directory, $fileName);
+
                 // Menyimpan File pada database File Data Pinjaman
-                $fileCredit->files = $fileName;
+                $fileCredit->files = $pathFile;
                 $fileCredit->id_credits = $credit->id;
                 $fileCredit->save();
             }
