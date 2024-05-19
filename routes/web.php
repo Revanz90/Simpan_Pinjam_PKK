@@ -57,7 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/{id}/data_angsuran', [InstallmentController::class, 'delete'])->name('delete_angsuran');
 
     Route::get('/data_anggota', [DataAnggotaController::class, 'index'])->name('dataanggota');
+    Route::get('/{id}/data_anggota', [DataAnggotaController::class, 'detailAnggota'])->name('detail_dataanggota');
     Route::post('/data_anggota', [DataAnggotaController::class, 'store'])->name('storedataanggota');
+    Route::post('/{id}/data_anggota', [DataAnggotaController::class, 'update'])->name('ubahdataanggota');
     Route::delete('/{id}/data_anggota', [DataAnggotaController::class, 'delete'])->name('delete_anggota');
 
     Route::get('/laporan_simpanan', [MonthlyReportController::class, 'index'])->name('laporan_simpanan');
