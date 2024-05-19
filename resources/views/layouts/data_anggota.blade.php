@@ -66,6 +66,12 @@
                                 <td>{{ $data->alamat_anggota }}</td>
                                 <td>{{ $data->jenis_kelamin }}</td>
                                 <td>
+                                    <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch"
+                                        href=" {{ route('ubahdataanggota', ['id' => $data->id]) }}">
+                                        <i class="fas fa-edit">
+                                        </i>
+                                        Ubah
+                                    </a>
                                     <form action="{{ route('delete_anggota', ['id' => $data->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
