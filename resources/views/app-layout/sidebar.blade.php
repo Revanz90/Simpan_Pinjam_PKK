@@ -56,6 +56,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('indexresumetransaksisimpanan') ? 'menu-open' : '' }}">
+                    <a href="{{ route('indexresumetransaksisimpanan') }}" class="nav-link">
+                        <i class="nav-icon 	fas fa-receipt"></i>
+                        <p>
+                            Detail Transaksi Simpanan
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item {{ request()->routeIs('datapinjaman') ? 'menu-open' : '' }}">
                     <a href="{{ route('datapinjaman') }}" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>

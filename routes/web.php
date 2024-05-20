@@ -12,6 +12,7 @@ use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\LaporanAngsuranController;
 use App\Http\Controllers\LaporanPinjamanController;
 use App\Http\Controllers\MonthlyReportController;
+use App\Http\Controllers\ResumeTransaksiSimpananController;
 use App\Http\Controllers\SavingController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan_angsuran', [LaporanAngsuranController::class, 'index'])->name('laporan_angsuran');
     Route::get('/export_angsuran', [LaporanAngsuranController::class, 'exportPdf'])->name('export_angsuran');
 
+    Route::get('/resume_transaksi_simpanan', [ResumeTransaksiSimpananController::class, 'index'])->name('indexresumetransaksisimpanan');
 });
 
 require __DIR__ . '/auth.php';
