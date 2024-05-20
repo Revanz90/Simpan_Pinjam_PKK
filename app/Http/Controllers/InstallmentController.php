@@ -8,6 +8,7 @@ use App\Models\Pinjamans;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class InstallmentController extends Controller
@@ -27,6 +28,9 @@ class InstallmentController extends Controller
     public function store_installment(Request $request, $id)
     {
         try {
+            // Begin a database transaction
+            DB::beginTransaction();
+            
             $credit = Pinjamans::find($id);
             $installment = new Angsuran();
             $installmentfile = new InstallmentFile();
@@ -64,12 +68,14 @@ class InstallmentController extends Controller
 
                 // Melakukan pengecekan jika inputan memiliki File
                 if ($request->hasFile('upload_bukti_angsuran')) {
-                    $fileName = $request->upload_bukti_angsuran->getClientOriginalName();
+                    $directory = 'files';
+                    $fileName = $request->file('upload_bukti_angsuran');
 
                     // Menyimpan data pada storage local
-                    Storage::putFileAs('public/files', $request->upload_bukti_angsuran, $fileName);
+                    $pathFile = Storage::disk('public')->put($directory, $fileName);
+
                     // Menyimpan File pada database File Surat Masuk
-                    $installmentfile->files = $fileName;
+                    $installmentfile->files = $pathFile;
                     $installmentfile->id_installments = $installment->id;
                     $installmentfile->save();
                 }
@@ -89,20 +95,27 @@ class InstallmentController extends Controller
 
                 // Melakukan pengecekan jika inputan memiliki File
                 if ($request->hasFile('upload_bukti_angsuran')) {
-                    $fileName = $request->upload_bukti_angsuran->getClientOriginalName();
+                    $directory = 'files';
+                    $fileName = $request->file('upload_bukti_angsuran');
 
                     // Menyimpan data pada storage local
-                    Storage::putFileAs('public/files', $request->upload_bukti_angsuran, $fileName);
+                    $pathFile = Storage::disk('public')->put($directory, $fileName);
+
                     // Menyimpan File pada database File Data Pinjaman
-                    $installmentfile->files = $fileName;
+                    $installmentfile->files = $pathFile;
                     $installmentfile->id_installments = $installment->id;
                     $installmentfile->save();
                 }
             }
+            
+            // Commit the database transaction if everything is successful
+            DB::commit();
 
             return redirect()->back()->with('success', 'Berhasil menambahkan Angsuran');
         } catch (\Throwable $th) {
-            dd($th);
+            // An error occurred, rollback the database transaction
+            DB::rollback();
+            
             return redirect()->back()->with('error', 'Gagal menambahkan Angsuran');
         }
     }

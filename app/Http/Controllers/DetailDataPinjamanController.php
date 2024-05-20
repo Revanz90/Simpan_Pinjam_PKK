@@ -35,6 +35,9 @@ class DetailDataPinjamanController extends Controller
 
         if ($buttonValue == 'diterima') {
             try {
+                // Begin a database transaction
+                DB::beginTransaction();
+
                 $credit = Pinjamans::find($id);
                 $reviewcredit = new ReviewCredit();
                 $reviewcreditfile = new ReviewCreditFile();
@@ -74,14 +77,23 @@ class DetailDataPinjamanController extends Controller
                     $reviewcreditfile->save();
                 }
 
+                // Commit the database transaction if everything is successful
+                DB::commit();
+
                 return redirect()->back()->with('success', 'Pinjaman Ini Diterima');
             } catch (\Throwable $th) {
+                // An error occurred, rollback the database transaction
+                DB::rollback();
+
                 return redirect()->back()->with('error', 'Pinjaman Ini Ditolak');
             }
         }
 
         if ($buttonValue == 'ditolak') {
             try {
+                // Begin a database transaction
+                DB::beginTransaction();
+
                 $credit = Pinjamans::find($id);
                 $reviewcredit = new ReviewCredit();
                 $reviewcreditfile = new ReviewCreditFile();
@@ -115,9 +127,14 @@ class DetailDataPinjamanController extends Controller
                     $reviewcreditfile->save();
                 }
 
+                // Commit the database transaction if everything is successful
+                DB::commit();
+
                 return redirect()->back()->with('error', 'Pinjaman ini Ditolak');
             } catch (\Throwable $th) {
-                dd($th);
+                // An error occurred, rollback the database transaction
+                DB::rollback();
+
                 return redirect()->back()->with('error', 'Pinjaman ini Ditolak');
             }
         }
@@ -170,7 +187,6 @@ class DetailDataPinjamanController extends Controller
 
             return redirect()->back()->with('success', 'Berhasil merubah data simpanan');
         } catch (\Throwable $th) {
-            dd($th);
             // An error occurred, rollback the database transaction
             DB::rollback();
             
