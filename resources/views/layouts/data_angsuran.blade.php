@@ -65,23 +65,30 @@
                                 <td>{{ $data->author_id }}</td>
                                 <td>{{ $data->author_name }}</td>
                                 <td>{{ $data->nominal_angsuran }}</td>
-                                <td>{{ $data->tanggal_transfer }}</td>
+                                <td>{{ $data->tanggal_transfer ? \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') : '' }}</td>
                                 <td>{{ $data->keterangan }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-xs text-center d-flex flex-column align-items-stretch"
-                                        href=" {{ route('detail_dataangsuran', ['id' => $data->id]) }}">
-                                        <i class="fas fa-folder">
-                                        </i>
-                                        Lihat
-                                    </a>
-                                    <form action="{{ route('delete_angsuran', ['id' => $data->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="btn btn-danger btn-xs text-center d-flex flex-column align-items-stretch mt-1">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
+                                    <div class="d-flex flex-column">
+                                        <a class="btn btn-info btn-sm"
+                                            href=" {{ route('detail_dataangsuran', ['id' => $data->id]) }}">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            Lihat
+                                        </a>
+                                        <a class="btn btn-secondary btn-sm mt-1"
+                                            href=" {{ route('indexUbahAngsuran', ['id' => $data->id]) }}">
+                                            <i class="fas fa-edit"></i>
+                                            Ubah
+                                        </a>
+                                        <form action="{{ route('delete_angsuran', ['id' => $data->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="btn btn-danger btn-sm mt-1">
+                                                <i class="fas fa-trash"></i> Delete
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

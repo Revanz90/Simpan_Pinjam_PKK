@@ -64,7 +64,6 @@ class DetailDataSimpananController extends Controller
 
             return redirect()->back()->with('success', 'Berhasil merubah data simpanan');
         } catch (\Throwable $th) {
-            dd($th);
             // An error occurred, rollback the database transaction
             DB::rollback();
             
