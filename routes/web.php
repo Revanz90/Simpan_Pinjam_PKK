@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/resume_transaksi_simpanan', [ResumeTransaksiSimpananController::class, 'index'])->name('indexresumetransaksisimpanan');
     Route::get('/resume_transaksi_angsuran', [ResumeTransaksiAngsuranController::class, 'index'])->name('indexresumetransaksiangsuran');
     Route::get('/export_resume_transaksi_simpanan', [ResumeTransaksiSimpananController::class, 'exportDetailTransaksiSimpananToPDF'])->name('exportDetailTransaksiSimpananToPDF');
+    Route::get('/export_resume_transaksi_angsuran', [ResumeTransaksiAngsuranController::class, 'exportDetailTransaksiAngsuranToPDF'])->name('exportDetailTransaksiAngsuranToPDF');
 });
 
 require __DIR__ . '/auth.php';
