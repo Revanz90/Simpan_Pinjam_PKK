@@ -47,10 +47,10 @@
                     </li>
                 @endhasrole
 
-                <h1 class="nav-header">PROSES</li>
+                <h1 class="nav-header">PROSES SIMPANAN</li>
                 <li class="nav-item {{ request()->routeIs('datasimpanan') ? 'menu-open' : '' }}">
                     <a href="{{ route('datasimpanan') }}" class="nav-link">
-                        <i class="nav-icon far fa-folder-open"></i>
+                        <i class="nav-icon fas fa-wallet"></i>
                         <p>
                             Transaksi Simpanan
                         </p>
@@ -64,19 +64,31 @@
                         </p>
                     </a>
                 </li>
+
+                <h1 class="nav-header">PROSES PINJAMAN</li>
                 <li class="nav-item {{ request()->routeIs('datapinjaman') ? 'menu-open' : '' }}">
                     <a href="{{ route('datapinjaman') }}" class="nav-link">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon 	fas fa-hand-holding-usd"></i>
                         <p>
                             Transaksi Pinjaman
                         </p>
                     </a>
                 </li>
+
+                <h1 class="nav-header">PROSES PINJAMAN</li>
                 <li class="nav-item {{ request()->routeIs('dataangsuran') ? 'menu-open' : '' }}">
                     <a href="{{ route('dataangsuran') }}" class="nav-link">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-donate"></i>
                         <p>
                             Transaksi Angsuran
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->routeIs('indexresumetransaksiangsuran') ? 'menu-open' : '' }}">
+                    <a href="{{ route('indexresumetransaksiangsuran') }}" class="nav-link">
+                        <i class="nav-icon 	fas fa-receipt"></i>
+                        <p>
+                            Detail Transaksi Angsuran
                         </p>
                     </a>
                 </li>
