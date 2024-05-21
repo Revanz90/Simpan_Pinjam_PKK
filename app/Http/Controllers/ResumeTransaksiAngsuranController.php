@@ -4,46 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anggota;
-use App\Models\Simpanan;
+use App\Models\Angsuran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ResumeTransaksiSimpananController extends Controller
+class ResumeTransaksiAngsuranController extends Controller
 {
     public function index(){
         $user = Auth::user();
     
-        // Fungsi untuk menghitung nominal uang berdasarkan koleksi Simpanan
-        function hitungNominal($simpanan) {
-            return $simpanan->sum('nominal_uang');
+        // Fungsi untuk menghitung nominal uang berdasarkan koleksi Angsuran
+        function hitungNominal($angsuran) {
+            return $angsuran->sum('nominal_angsuran');
         }
     
         $nominalPerAuthor = [];
-        $simpananSorted = collect();  // Inisialisasi sebagai koleksi kosong
+        $angsuranSorted = collect();  // Inisialisasi sebagai koleksi kosong
         $totalNominal = 0;
         $anggotaid = collect();
-    
+
         if ($user->hasRole('admin')) {
             // Ambil semua simpanan dan kelompokkan berdasarkan author_id
-            $simpananGroupedByAuthor = Simpanan::all()->groupBy('author_id');
+            $angsuranGroupedByAuthor = Angsuran::all()->groupBy('author_id');
 
             // Ambil semua anggota
-            $authorIds = $simpananGroupedByAuthor->keys();
+            $authorIds = $angsuranGroupedByAuthor->keys();
             $anggotaid = Anggota::whereIn('id_user', $authorIds)->get();
             
             // Loop melalui setiap kelompok simpanan untuk menghitung total nominal per author
-            foreach ($simpananGroupedByAuthor as $author_id => $simpanan) {
-                $nominalPerAuthor[$author_id] = hitungNominal($simpanan);
+            foreach ($angsuranGroupedByAuthor as $author_id => $angsuran) {
+                $nominalPerAuthor[$author_id] = hitungNominal($angsuran);
             }
     
             // Sort by desc berdasarkan created_at
-            $simpananSorted = $simpananGroupedByAuthor->sortByDesc(function($group) {
+            $simpananSorted = $angsuranGroupedByAuthor->sortByDesc(function($group) {
                 return $group->max('created_at');
             });
     
         } else {
             // Ambil simpanan berdasarkan author_id user
-            $simpanan = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
+            $angsuran = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
             // $anggotaid = Anggota::where('id_user', $user->id)->first();
 
             // Ambil data anggota dan masukkan ke dalam koleksi
@@ -53,10 +53,9 @@ class ResumeTransaksiSimpananController extends Controller
             }
             
             // Hitung total nominal
-            $totalNominal = hitungNominal($simpanan);
+            $totalNominal = hitungNominal($angsuran);
         }
-    
-        // Mengirimkan data ke view
-        return view('layouts.resume_transaksi_simpanan', compact('simpananSorted', 'nominalPerAuthor', 'totalNominal', 'user', 'anggotaid'));
-    }  
+
+        return view('layouts.resume_transaksi_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'totalNominal', 'user', 'anggotaid'));
+    }
 }

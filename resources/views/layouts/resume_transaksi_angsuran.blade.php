@@ -1,8 +1,8 @@
 @extends('main')
 
-@section('title', 'Detail Transaksi Simpanan')
-@section('title2', 'Detail Transaksi Simpanan')
-@section('judul', 'Detail Transaksi Simpanan')
+@section('title', 'Detail Transaksi Angsuran')
+@section('title2', 'Detail Transaksi Angsuran')
+@section('judul', 'Detail Transaksi Angsuran')
 
 @section('page-js-files')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -14,7 +14,7 @@
         <div id="xtest" style="font-size: 14px"></div>
         <div class="callout callout-warning">
             <i class="fas fa-info-circle"></i>
-            Halaman untuk melihat Detail Transaksi Simpanan
+            Halaman untuk melihat Detail Transaksi Angsuran
         </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
@@ -33,7 +33,7 @@
         <div class="card">
             <!-- Navbar Content -->
             <div class="card-header">
-                <h4 class="card-title font-weight-bold">Detail Transaksi Simpanan</h4>
+                <h4 class="card-title font-weight-bold">Detail Transaksi Angsuran</h4>
                 <div class="card-tools">
                     <input type="hidden" name="xnull" id="statusxid[2]" value="2">
                     <div class="project-actions text-center">
@@ -53,7 +53,7 @@
                         <tr>
                             <th>ID Anggota</th>
                             <th>Nama Anggota</th>
-                            <th>Jumlah Pinjaman</th>
+                            <th>Jumlah Angsuran</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,5 +75,5 @@
             </div>
         </div>
     </section>
-
+    
 @endsection
