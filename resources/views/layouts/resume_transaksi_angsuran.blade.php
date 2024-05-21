@@ -62,7 +62,7 @@
                                 <td>{{ $anggota->id_anggota }}</td>
                                 <td>{{ $anggota->nama_anggota }}</td>
                                 <td>
-                                    @if($user->hasRole('admin'))
+                                    @if($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara'))
                                         {{ $nominalPerAuthor[$anggota->id_user] ?? 0 }}
                                     @else
                                         {{ $totalNominal }}
