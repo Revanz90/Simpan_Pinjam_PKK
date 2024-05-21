@@ -25,7 +25,7 @@ class ResumeTransaksiSimpananController extends Controller
         $totalNominal = 0;
         $anggotaid = collect();
     
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara')) {
             // Ambil semua simpanan dan kelompokkan berdasarkan author_id
             $simpananGroupedByAuthor = Simpanan::all()->groupBy('author_id');
 
@@ -75,7 +75,7 @@ class ResumeTransaksiSimpananController extends Controller
         $totalNominal = 0;
         $anggotaid = collect();
     
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara')) {
             // Ambil semua simpanan dan kelompokkan berdasarkan author_id
             $simpananGroupedByAuthor = Simpanan::all()->groupBy('author_id');
 

@@ -93,27 +93,27 @@
                     </a>
                 </li>
 
-                @hasrole('admin|bendahara')
+                @hasrole('admin|ketua|bendahara')
                     <h1 class="nav-header">OUTPUT</li>
 
-                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
-                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                    <li class="nav-item {{ request()->routeIs('laporan_simpanan') ? 'menu-open' : '' }}">
+                        <a href="{{ route('laporan_simpanan') }}" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Laporan Simpanan
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
-                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                    <li class="nav-item {{ request()->routeIs('laporan_pinjaman') ? 'menu-open' : '' }}">
+                        <a href="{{ route('laporan_pinjaman') }}" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Laporan Pinjaman
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('dataanggota') ? 'menu-open' : '' }}">
-                        <a href="{{ route('dataanggota') }}" class="nav-link">
+                    <li class="nav-item {{ request()->routeIs('laporan_angsuran') ? 'menu-open' : '' }}">
+                        <a href="{{ route('laporan_angsuran') }}" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Laporan Angsuran
