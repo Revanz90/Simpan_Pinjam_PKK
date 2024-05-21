@@ -69,7 +69,7 @@ class LaporanAngsuranController extends Controller
         $installments = $querySavingMonth->get();
 
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
             $installments = Angsuran::all()->sortByDesc('created_at');
         } else {
             $installments = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
@@ -80,7 +80,7 @@ class LaporanAngsuranController extends Controller
     public function exportPdf()
     {
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
             $installment = Angsuran::all()->sortByDesc('created_at');
         } else {
             $installment = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');

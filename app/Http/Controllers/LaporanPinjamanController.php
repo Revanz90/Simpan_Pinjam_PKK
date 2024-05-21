@@ -69,7 +69,7 @@ class LaporanPinjamanController extends Controller
         $credits = $querySavingMonth->get();
 
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
             $credits = Pinjamans::all()->sortByDesc('created_at');
         } else {
             $credits = Pinjamans::where('author_id', $user->id)->get()->sortByDesc('created_at');
@@ -80,7 +80,7 @@ class LaporanPinjamanController extends Controller
     public function exportPdf()
     {
         $user = Auth::user();
-        if ($user->hasRole('admin') || $user->hasRole('bendahara')) {
+        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
             $credit = Pinjamans::all()->sortByDesc('created_at');
         } else {
             $credit = Pinjamans::where('author_id', $user->id)->get()->sortByDesc('created_at');

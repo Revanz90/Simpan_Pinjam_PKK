@@ -25,7 +25,7 @@ class ResumeTransaksiAngsuranController extends Controller
         $totalNominal = 0;
         $anggotaid = collect();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara')) {
             // Ambil semua simpanan dan kelompokkan berdasarkan author_id
             $angsuranGroupedByAuthor = Angsuran::all()->groupBy('author_id');
 
@@ -39,7 +39,7 @@ class ResumeTransaksiAngsuranController extends Controller
             }
     
             // Sort by desc berdasarkan created_at
-            $simpananSorted = $angsuranGroupedByAuthor->sortByDesc(function($group) {
+            $angsuranSorted = $angsuranGroupedByAuthor->sortByDesc(function($group) {
                 return $group->max('created_at');
             });
     
@@ -75,7 +75,7 @@ class ResumeTransaksiAngsuranController extends Controller
         $totalNominal = 0;
         $anggotaid = collect();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara')) {
             // Ambil semua simpanan dan kelompokkan berdasarkan author_id
             $angsuranGroupedByAuthor = Angsuran::all()->groupBy('author_id');
 
@@ -89,7 +89,7 @@ class ResumeTransaksiAngsuranController extends Controller
             }
     
             // Sort by desc berdasarkan created_at
-            $simpananSorted = $angsuranGroupedByAuthor->sortByDesc(function($group) {
+            $angsuranSorted = $angsuranGroupedByAuthor->sortByDesc(function($group) {
                 return $group->max('created_at');
             });
     
@@ -108,7 +108,7 @@ class ResumeTransaksiAngsuranController extends Controller
             $totalNominal = hitungNominalAngsuran($angsuran);
         }
 
-        $pdf = Pdf::loadView('pdf.export_detail_angsuran', compact('simpananSorted', 'nominalPerAuthor', 'totalNominal', 'user', 'anggotaid', 'dateNow'));
+        $pdf = Pdf::loadView('pdf.export_detail_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'totalNominal', 'user', 'anggotaid', 'dateNow'));
         return $pdf->download('Detail Transaksi Angsuran ' . Carbon::parse($dateNow)->translatedFormat('d F Y') . '.pdf');
     }
 }
