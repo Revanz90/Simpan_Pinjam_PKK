@@ -37,7 +37,7 @@
                 <div class="card-tools">
                     <input type="hidden" name="xnull" id="statusxid[2]" value="2">
                     <div class="project-actions text-center">
-                        <a href="{{ route('laporan_simpanan') }}" class="btn btn-warning" role="button" data-bs-toggle="button">
+                        <a href="{{ route('exportDetailTransaksiAngsuranToPDF') }}" class="btn btn-warning" role="button" data-bs-toggle="button">
                             <i class="fas fa-print"></i>
                             CETAK
                         </a>
