@@ -55,7 +55,7 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label font-weight-normal">Bukti Transfer</label>
                     <div class="card-footer bg-white col-sm-10">
-                        <embed type="application/pdf" src="{{ url('storage/files/' . $file->files) }}" id="pdf-embed"
+                        <embed type="application/pdf" src="{{ url('storage/' . $file->files) }}" id="pdf-embed"
                             frameborder="0" width="100%" height="780">
                     </div>
                 </div>
