@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DetailDataPinjamanController extends Controller
 {
+
     public function index($id)
     {
         $data = Pinjamans::find($id);
@@ -43,8 +44,8 @@ class DetailDataPinjamanController extends Controller
                 $reviewcreditfile = new ReviewCreditFile();
 
                 $validated = $request->validate([
-                    'no_nota' => 'required',
-                    'keterangan_review_pinajaman' => 'required',
+                    // 'no_nota' => 'required',
+                    // 'keterangan_review_pinajaman' => 'required',
                     'upload_bukti_transfer_review' => 'required',
                 ]);
 
@@ -60,8 +61,8 @@ class DetailDataPinjamanController extends Controller
                 $credit->jumlah_cicilan_per_bulan = $jumlah_cicilan_per_bulan;
                 $credit->save();
 
-                $reviewcredit->no_nota = $request->input('no_nota');
-                $reviewcredit->keterangan = $request->input('keterangan_review_pinajaman');
+                $reviewcredit->no_nota = 'R01';
+                $reviewcredit->keterangan = 'Rosa Request';
                 $reviewcredit->credit_id = $id;
                 $reviewcredit->author_id = Auth::id();
                 $reviewcredit->save();
@@ -99,8 +100,8 @@ class DetailDataPinjamanController extends Controller
                 $reviewcreditfile = new ReviewCreditFile();
 
                 $validated = $request->validate([
-                    'no_nota' => 'required',
-                    'keterangan_review_pinajaman' => 'required',
+                    // 'no_nota' => 'required',
+                    // 'keterangan_review_pinajaman' => 'required',
                     'upload_bukti_transfer_review' => 'required',
                 ]);
 
@@ -110,8 +111,8 @@ class DetailDataPinjamanController extends Controller
                 $credit->penalty = 0;
                 $credit->save();
 
-                $reviewcredit->no_nota = $request->input('no_nota');
-                $reviewcredit->keterangan = $request->input('keterangan_review_pinajaman');
+                $reviewcredit->no_nota = 'R01';
+                $reviewcredit->keterangan = 'Rosa Request';
                 $reviewcredit->credit_id = $id;
                 $reviewcredit->author_id = Auth::id();
                 $reviewcredit->save();
