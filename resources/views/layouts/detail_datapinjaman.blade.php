@@ -37,7 +37,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#modal-default-pinjaman">
                         <i class="fas fa-plus"></i>
-                        Nota Pinjaman
+                        Verifikasi
                     </button>
                 @endif
             </div>
@@ -121,7 +121,7 @@
         <div class="modal-dialog" style="max-width: 80%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Nota Pinjaman</h4>
+                    <h4 class="modal-title">Verifikasi Pinjaman</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -131,7 +131,7 @@
                         <div class="card">
                             <!-- Navbar Content -->
                             <div class="card-header ">
-                                <h4 class="card-title font-weight-bold">TAMBAH NOTA PINJAMAN</h4>
+                                <h4 class="card-title font-weight-bold">TAMBAH VERIFIKASI PINJAMAN</h4>
                                 <div class="card-tools"></div>
                             </div>
 
@@ -143,7 +143,7 @@
                                         <div class="card">
                                             <div class="card-body">
 
-                                                <div class="form-group row">
+                                                <!-- <div class="form-group row">
                                                     <label for=""
                                                         class="col-sm-2 col-form-label font-weight-normal">No Nota</label>
                                                     <div class="col-sm-10">
@@ -159,7 +159,7 @@
                                                         <input type="text" name="keterangan_review_pinajaman"
                                                             class="form-control">
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="form-group row">
                                                     <label for="proposal_ProposalTA"
