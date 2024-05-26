@@ -55,6 +55,7 @@
                 <table id="examplePolos" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>ID Anggota</th>
                             <th>Nama Anggota</th>
                             <th>Nominal Simpanan</th>
@@ -67,6 +68,7 @@
                     <tbody>
                         @foreach ($datas as $index => $data)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->author_id }}</td>
                                 <td>{{ $data->author_name }}</td>
                                 <td>{{ $data->nominal_uang }}</td>
@@ -96,7 +98,7 @@
                                             </button>
                                         </form>
                                     </div>
-                                    
+
                                 </td>
                             </tr>
                         @endforeach

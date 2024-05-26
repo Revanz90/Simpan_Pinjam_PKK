@@ -51,6 +51,7 @@
                 <table id="examplePolos" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>ID Anggota</th>
                             <th>Nama Anggota</th>
                             <th>Nominal Angsuran</th>
@@ -62,10 +63,12 @@
                     <tbody>
                         @foreach ($datas as $index => $data)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->author_id }}</td>
                                 <td>{{ $data->author_name }}</td>
                                 <td>{{ $data->nominal_angsuran }}</td>
-                                <td>{{ $data->tanggal_transfer ? \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $data->tanggal_transfer ? \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') : '' }}
+                                </td>
                                 <td>{{ $data->keterangan }}</td>
                                 <td>
                                     <div class="d-flex flex-column">
@@ -83,8 +86,7 @@
                                         <form action="{{ route('delete_angsuran', ['id' => $data->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
-                                                class="btn btn-danger btn-sm mt-1">
+                                            <button type="submit" class="btn btn-danger btn-sm mt-1">
                                                 <i class="fas fa-trash"></i> Delete
                                             </button>
                                         </form>
