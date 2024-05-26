@@ -51,6 +51,7 @@
                 <table id="examplePolos" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama Anggota</th>
                             <th>ID Anggota</th>
                             <th>Alamat Anggota</th>
@@ -61,6 +62,7 @@
                     <tbody>
                         @foreach ($datas as $index => $data)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->nama_anggota }}</td>
                                 <td>{{ $data->id_anggota }}</td>
                                 <td>{{ $data->alamat_anggota }}</td>
@@ -148,7 +150,7 @@
                                                         class="col-sm-2 col-form-label font-weight-normal">Email
                                                         Anggota</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="email_anggota" class="form-control">
+                                                        <input type="email" name="email_anggota" class="form-control">
                                                     </div>
                                                 </div>
 
@@ -164,13 +166,13 @@
                                                     <label class="col-sm-2 col-form-label font-weight-normal">Jenis
                                                         Kelamin</label>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="jenis_kelamin"
-                                                            id="inlineRadio1" value="pria">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="jenis_kelamin" id="inlineRadio1" value="pria">
                                                         <label class="form-check-label" for="inlineRadio1">Pria</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="jenis_kelamin"
-                                                            id="inlineRadio2" value="wanita">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="jenis_kelamin" id="inlineRadio2" value="wanita">
                                                         <label class="form-check-label" for="inlineRadio2">Wanita</label>
                                                     </div>
                                                 </div>
