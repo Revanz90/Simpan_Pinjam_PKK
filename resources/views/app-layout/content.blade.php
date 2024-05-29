@@ -35,7 +35,7 @@
         <div class="small-box bg-info">
             <div class="inner">
                 <h3>{{ $countsaving }}</h3>
-                <p>Data Simpanan</p>
+                <p>Transaksi Simpanan</p>
             </div>
             <div class="icon">
                 <i class="ion ion-folder"></i>
@@ -48,7 +48,7 @@
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3>{{ $countcredit }}</h3>
-                <p>Data Pinjaman</p>
+                <p>Transaksi Pinjaman</p>
             </div>
             <div class="icon">
                 <i class=" ion ion-email-unread"></i>
@@ -62,7 +62,7 @@
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>{{ $countinstalment }}</h3>
-                <p>Data Angsuran</p>
+                <p>Transaksi Angsuran</p>
             </div>
             <div class="icon">
                 <i class="ion ion-compose"></i>

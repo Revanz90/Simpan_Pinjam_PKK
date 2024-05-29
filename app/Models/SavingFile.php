@@ -10,4 +10,10 @@ class SavingFile extends Model
     use HasFactory;
 
     protected $tables = 'saving_files';
+
+    protected $fillable = [
+        'files',
+        'id_savings',
+        // Add other fields as needed
+    ];
 }

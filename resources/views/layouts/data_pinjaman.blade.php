@@ -99,6 +99,7 @@
                                             <i class="fas fa-edit"></i>
                                             Ubah
                                         </a>
+                                        @hasrole('admin')
                                         <form action="{{ route('delete_pinjaman', ['id' => $data->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -106,6 +107,7 @@
                                                 <i class="fas fa-trash"></i> Delete
                                             </button>
                                         </form>
+                                        @endhasrole
                                     </div>
                                 </td>
                             </tr>
@@ -149,7 +151,7 @@
                                                         class="col-sm-2 col-form-label font-weight-normal">Nominal
                                                         Pinjaman</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="nominal" class="form-control">
+                                                        <input type="text" name="nominal" id="nominal" class="form-control" placeholder="Max Pinjaman Rp10.000.000">
                                                     </div>
                                                 </div>
 
@@ -205,4 +207,24 @@
         <!-- /.modal-content -->
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const angkaInput = document.getElementById('nominal');
+
+            angkaInput.addEventListener('input', function(e) {
+                let value = angkaInput.value;
+
+                // Hapus semua karakter yang bukan angka
+                value = value.replace(/\D/g, '');
+
+                // Batasi angka maksimal 10.000.000
+                if (value !== "" && parseInt(value, 10) > 10000000) {
+                    value = "10000000";
+                }
+
+                // Set nilai input yang sudah difilter
+                angkaInput.value = value;
+            });
+        });
+    </script>
 @endsection

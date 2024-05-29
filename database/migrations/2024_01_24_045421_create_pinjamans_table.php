@@ -27,9 +27,6 @@ return new class extends Migration
             $table->double('total_terbayar')->default(0);
             $table->double('jumlah_cicilan_per_bulan')->default(0);
             $table->timestamps();
-
-            $table->foreign('author_id')->references('id')->on('users');
-
         });
     }
 

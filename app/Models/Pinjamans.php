@@ -10,7 +10,19 @@ class Pinjamans extends Model
     use HasFactory;
 
     protected $fillable = [
-        'belum_lunas',
+        'nominal_pinjaman',
+        'keterangan',
+        'tanggal_pinjaman',
+        'status_credit',
+        'author_id',
+        'author_name',
+        'status_ketua',
+        'loan_interest',
+        'penalty',
+        'count_pinalty',
+        'due_date',
+        'total_terbayar',
+        'jumlah_cicilan_per_bulan',
     ];
 
     public function getStatusCreditMasukAttribute()

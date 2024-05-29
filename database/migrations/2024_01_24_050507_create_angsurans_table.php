@@ -21,9 +21,6 @@ return new class extends Migration
             $table->string('author_name');
             $table->unsignedBigInteger('credit_id');
             $table->timestamps();
-
-            $table->foreign('author_id')->references('id')->on('users');
-
         });
     }
 

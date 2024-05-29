@@ -10,4 +10,10 @@ class CreditFile extends Model
     use HasFactory;
 
     protected $tables = 'credit_files';
+
+    protected $fillable = [
+        'files',
+        'id_credits',
+        // Add other fields as needed
+    ];
 }

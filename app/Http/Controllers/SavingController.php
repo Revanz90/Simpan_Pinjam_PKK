@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use App\Models\SavingFile;
 use App\Models\Simpanan;
 use Illuminate\Http\Request;
@@ -14,10 +15,13 @@ class SavingController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $userID = Auth::id();
+        $anggotaID = Anggota::where('id_user', $userID)->first();
+
         if ($user->hasRole('admin') || $user->hasRole('bendahara') || $user->hasRole('ketua')) {
             $saving = Simpanan::all()->sortByDesc('created_at');
         } else {
-            $saving = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
+            $saving = Simpanan::where('author_id', $anggotaID->id_anggota)->get()->sortByDesc('created_at');
         }
         return view('layouts.data_simpanan', ['datas' => $saving]);
     }
@@ -39,12 +43,17 @@ class SavingController extends Controller
                 'upload_bukti' => 'required',
             ]);
 
-            $saving->nominal_uang = $request->input('nominal');
-            $saving->tanggal_transfer = $request->input('tanggal_transfer');
-            $saving->keterangan = $request->input('keterangan');
-            $saving->author_id = Auth::id();
-            $saving->author_name = Auth::user()->name;
-            $saving->save();
+            // Get id anggota
+            $userID = Auth::id();
+            $anggotaID = Anggota::where('id_user', $userID)->first();
+
+            $saving = Simpanan::create([
+                'nominal_uang' => $request->input('nominal'),
+                'keterangan'=> $request->input('keterangan'),
+                'tanggal_transfer'=> $request->input('tanggal_transfer'),
+                'author_id' => $anggotaID->id_anggota,
+                'author_name' => $anggotaID->nama_anggota,
+            ]);
 
             // Melakukan pengecekan jika inputan memiliki File
             if ($request->hasFile('upload_bukti')) {
@@ -55,9 +64,10 @@ class SavingController extends Controller
                 $pathFile = Storage::disk('public')->put($directory, $fileName);
 
                 // Menyimpan File pada database File Data Simpanan
-                $fileSaving->files = $pathFile;
-                $fileSaving->id_savings = $saving->id;
-                $fileSaving->save();
+                SavingFile::create([
+                    'files' => $pathFile,
+                    'id_savings' => $saving->id
+                ]);
             }
 
             // Commit the database transaction

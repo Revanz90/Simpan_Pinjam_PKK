@@ -9,6 +9,16 @@ class Simpanan extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nominal_uang',
+        'keterangan',
+        'tanggal_transfer',
+        'status',
+        'author_id',
+        'author_name',
+        // Add other fields as needed
+    ];
+
     public function getStatusSavingMasukAttribute()
     {
         if (isset($this->attributes['status']) && $this->attributes['status']) {
