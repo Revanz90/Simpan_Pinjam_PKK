@@ -74,6 +74,7 @@
                                         </i>
                                         Ubah
                                     </a>
+                                    @hasrole('admin')
                                     <form action="{{ route('delete_anggota', ['id' => $data->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -82,6 +83,7 @@
                                             <i class="fas fa-trash"></i> Delete
                                         </button>
                                     </form>
+                                    @endhasrole
                                 </td>
                             </tr>
                         @endforeach
@@ -123,7 +125,7 @@
                                                         class="col-sm-2 col-form-label font-weight-normal">Nama
                                                         Anggota</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="nama_anggota" class="form-control">
+                                                        <input type="text" name="nama_anggota" id="nama_anggota" class="form-control">
                                                     </div>
                                                 </div>
 
@@ -132,7 +134,7 @@
                                                         class="col-sm-2 col-form-label font-weight-normal">ID
                                                         Anggota</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="id_anggota" class="form-control">
+                                                        <input type="text" name="id_anggota" id="id_anggota" class="form-control" placeholder="Masukkan angka (max 3)">
                                                     </div>
                                                 </div>
 
@@ -150,7 +152,8 @@
                                                         class="col-sm-2 col-form-label font-weight-normal">Email
                                                         Anggota</label>
                                                     <div class="col-sm-10">
-                                                        <input type="email" name="email_anggota" class="form-control">
+                                                        <input type="email" name="email_anggota" id="email_anggota" class="form-control">
+                                                        <span id="email_feedback" style="color: red; display: none;">Format email tidak valid</span>
                                                     </div>
                                                 </div>
 
@@ -200,4 +203,44 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal -->
+
+    <script>
+        document.getElementById('nama_anggota').addEventListener('input', function (e) {
+            var input = e.target.value;
+            e.target.value = input.replace(/[^A-Za-z\s]/g, '');
+        });
+
+        document.getElementById('email_anggota').addEventListener('input', function (e) {
+            var input = e.target.value;
+            var feedback = document.getElementById('email_feedback');
+            
+            // Simple email regex pattern
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (emailPattern.test(input)) {
+                feedback.style.display = 'none';
+            } else {
+                feedback.style.display = 'inline';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const angkaInput = document.getElementById('id_anggota');
+
+            angkaInput.addEventListener('input', function(e) {
+                let value = angkaInput.value;
+
+                // Hapus semua karakter yang bukan angka
+                value = value.replace(/\D/g, '');
+
+                // Batasi panjang input maksimal 3 angka
+                if (value.length > 3) {
+                    value = value.slice(0, 3);
+                }
+
+                // Set nilai input yang sudah difilter
+                angkaInput.value = value;
+            });
+        });
+    </script>
 @endsection

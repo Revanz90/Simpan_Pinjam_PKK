@@ -9,6 +9,16 @@ class Angsuran extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nominal_angsuran',
+        'keterangan',
+        'tanggal_transfer',
+        'status',
+        'author_id',
+        'author_name',
+        'credit_id',
+    ];
+
     public function getStatusAngsuranMasukAttribute()
     {
         if (isset($this->attributes['status']) && $this->attributes['status']) {

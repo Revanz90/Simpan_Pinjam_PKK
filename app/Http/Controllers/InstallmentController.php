@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use App\Models\Angsuran;
 use App\Models\InstallmentFile;
 use App\Models\Pinjamans;
@@ -16,11 +17,13 @@ class InstallmentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // dd($user->role);
+        $userID = Auth::id();
+        $anggotaID = Anggota::where('id_user', $userID)->first();
+        
         if ($user->hasRole('admin') || $user->hasRole('bendahara') || $user->hasRole('ketua')) {
             $installment = Angsuran::all()->sortByDesc('created_at');
         } else {
-            $installment = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
+            $installment = Angsuran::where('author_id', $anggotaID->id_anggota)->get()->sortByDesc('created_at');
         }
         return view('layouts.data_angsuran', ['datas' => $installment]);
     }
@@ -43,14 +46,17 @@ class InstallmentController extends Controller
                 'upload_bukti_angsuran' => 'required',
             ]);
 
+            $userID = Auth::id();
+            $anggotaID = Anggota::where('id_user', $userID)->first();
+
             $currentDate = Carbon::parse($request->input('tanggal_transfer_angsuran'));
 
             if ($currentDate->greaterThan($credit->due_date)) {
                 $installment->nominal_angsuran = $request->input('nominal_angsuran');
                 $installment->keterangan = $request->input('keterangan_angsuran');
                 $installment->tanggal_transfer = $request->input('tanggal_transfer_angsuran');
-                $installment->author_id = Auth::id();
-                $installment->author_name = Auth::user()->name;
+                $installment->author_id = $anggotaID->id_anggota;
+                $installment->author_name = $anggotaID->nama_anggota;
                 $installment->credit_id = $id;
                 $installment->save();
 
@@ -84,8 +90,9 @@ class InstallmentController extends Controller
                 $installment->nominal_angsuran = $request->input('nominal_angsuran');
                 $installment->tanggal_transfer = $request->input('tanggal_transfer_angsuran');
                 $installment->keterangan = $request->input('keterangan_angsuran');
-                $installment->author_id = Auth::id();
-                $installment->author_name = Auth::user()->name;
+                $installment->author_id = $anggotaID->id_anggota;
+                $installment->author_name = $anggotaID->nama_anggota;
+                
                 $installment->credit_id = $id;
                 $installment->save();
 

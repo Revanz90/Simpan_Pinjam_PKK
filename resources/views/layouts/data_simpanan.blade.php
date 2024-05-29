@@ -90,6 +90,7 @@
                                             <i class="fas fa-edit"></i>
                                             Ubah
                                         </a>
+                                        @hasrole('admin')
                                         <form action="{{ route('delete_simpanan', ['id' => $data->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -97,6 +98,7 @@
                                                 <i class="fas fa-trash"></i> Delete
                                             </button>
                                         </form>
+                                        @endhasrole
                                     </div>
 
                                 </td>

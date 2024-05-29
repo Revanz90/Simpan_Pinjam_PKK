@@ -20,9 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('author_id');
             $table->string('author_name');
             $table->timestamps();
-
-            $table->foreign('author_id')->references('id')->on('users');
-
         });
     }
 

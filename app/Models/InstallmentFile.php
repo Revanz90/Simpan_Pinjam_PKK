@@ -10,4 +10,10 @@ class InstallmentFile extends Model
     use HasFactory;
 
     protected $tables = 'installment_files';
+
+    protected $fillable = [
+        'files',
+        'id_installments',
+        // Add other fields as needed
+    ];
 }
