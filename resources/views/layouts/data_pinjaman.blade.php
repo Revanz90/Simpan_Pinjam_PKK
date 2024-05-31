@@ -84,7 +84,7 @@
                                     <div class="d-flex flex-column">
                                         <a class="btn btn-info btn-sm"
                                             href=" {{ route('detail_datapinjaman', ['id' => $data->id]) }}">
-                                            <i class="fas fa-folder">
+                                            <i class="fas fa-eye">
                                             </i>
                                             Lihat
                                         </a>
@@ -92,7 +92,7 @@
                                             href="{{ route('detail_nota', ['id' => $data->id]) }}">
                                             <i class="fas fa-folder">
                                             </i>
-                                            Verifikasi
+                                            Bukti Verifikasi
                                         </a>
                                         <a class="btn btn-secondary btn-sm mt-1"
                                             href=" {{ route('ubahpinjamindex', ['id' => $data->id]) }}">

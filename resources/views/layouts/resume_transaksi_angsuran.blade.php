@@ -54,6 +54,7 @@
                             <th>ID Anggota</th>
                             <th>Nama Anggota</th>
                             <th>Jumlah Angsuran</th>
+                            <th>Jumlah Denda</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,9 +64,16 @@
                                 <td>{{ $anggota->nama_anggota }}</td>
                                 <td>
                                     @if($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara'))
-                                        {{ $nominalPerAuthor[$anggota->id_user] ?? 0 }}
+                                        {{ $nominalPerAuthor[$anggota->id_anggota] ?? 0 }}
                                     @else
                                         {{ $totalNominal }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara'))
+                                        {{ $dendaPerAuthor[$anggota->id_anggota] ?? 0 }}
+                                    @else
+                                        {{ $totalDenda }}
                                     @endif
                                 </td>
                             </tr>

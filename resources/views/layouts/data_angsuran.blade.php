@@ -56,6 +56,7 @@
                             <th>Nama Anggota</th>
                             <th>Nominal Angsuran</th>
                             <th>Tanggal Angsuran</th>
+                            <th>Denda</th>
                             <th>Keterangan</th>
                             <th>Detail</th>
                         </tr>
@@ -67,8 +68,8 @@
                                 <td>{{ $data->author_id }}</td>
                                 <td>{{ $data->author_name }}</td>
                                 <td>{{ $data->nominal_angsuran }}</td>
-                                <td>{{ $data->tanggal_transfer ? \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') : '' }}
-                                </td>
+                                <td>{{ $data->tanggal_transfer ? \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $data->nominal_denda }}</td>
                                 <td>{{ $data->keterangan }}</td>
                                 <td>
                                     <div class="d-flex flex-column">

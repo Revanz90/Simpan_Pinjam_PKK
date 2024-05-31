@@ -43,7 +43,14 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label font-weight-normal">Tanggal Angsuran</label>
                     <div class="col-sm-10">
-                        <input type="text" name="" class="form-control" value="{{ $data->tanggal_transfer }}"
+                        <input type="text" name="" class="form-control" value="{{ \Carbon\Carbon::parse($data->tanggal_transfer)->format('d-m-Y') }}"
+                            readonly>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label font-weight-normal">Denda</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="" class="form-control" value="{{ $data->nominal_denda }}"
                             readonly>
                     </div>
                 </div>
