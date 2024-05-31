@@ -19,10 +19,17 @@ class ResumeTransaksiAngsuranController extends Controller
         function hitungNominal($angsuran) {
             return $angsuran->sum('nominal_angsuran');
         }
+
+        // Fungsi untuk menghitung nominal denda berdasarkan koleksi Angsuran
+        function hitungDenda($angsuran) {
+            return $angsuran->sum('nominal_denda');
+        }
     
         $nominalPerAuthor = [];
+        $dendaPerAuthor = [];
         $angsuranSorted = collect();  // Inisialisasi sebagai koleksi kosong
         $totalNominal = 0;
+        $totalDenda = 0;
         $anggotaid = collect();
 
         if ($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara')) {
@@ -31,11 +38,12 @@ class ResumeTransaksiAngsuranController extends Controller
 
             // Ambil semua anggota
             $authorIds = $angsuranGroupedByAuthor->keys();
-            $anggotaid = Anggota::whereIn('id_user', $authorIds)->get();
+            $anggotaid = Anggota::whereIn('id_anggota', $authorIds)->get();
             
             // Loop melalui setiap kelompok simpanan untuk menghitung total nominal per author
             foreach ($angsuranGroupedByAuthor as $author_id => $angsuran) {
                 $nominalPerAuthor[$author_id] = hitungNominal($angsuran);
+                $dendaPerAuthor[$author_id] = hitungDenda($angsuran);
             }
     
             // Sort by desc berdasarkan created_at
@@ -44,21 +52,23 @@ class ResumeTransaksiAngsuranController extends Controller
             });
     
         } else {
+            //Ambil data anggota
+            $anggota = Anggota::where('id_user', $user->id)->first();
+
             // Ambil simpanan berdasarkan author_id user
-            $angsuran = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
-            // $anggotaid = Anggota::where('id_user', $user->id)->first();
+            $angsuran = Angsuran::where('author_id', $anggota->id_anggota)->get()->sortByDesc('created_at');
 
             // Ambil data anggota dan masukkan ke dalam koleksi
-            $anggota = Anggota::where('id_user', $user->id)->first();
             if ($anggota) {
                 $anggotaid = collect([$anggota]);
             }
-            
+
             // Hitung total nominal
             $totalNominal = hitungNominal($angsuran);
+            $totalDenda = hitungDenda($angsuran);
         }
 
-        return view('layouts.resume_transaksi_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'totalNominal', 'user', 'anggotaid'));
+        return view('layouts.resume_transaksi_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'dendaPerAuthor', 'totalNominal', 'totalDenda', 'user', 'anggotaid'));
     }
 
     public function exportDetailTransaksiAngsuranToPDF(){

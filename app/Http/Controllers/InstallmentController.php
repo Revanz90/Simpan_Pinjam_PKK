@@ -64,11 +64,18 @@ class InstallmentController extends Controller
                 $toDate = Carbon::parse($credit->due_date);
                 $fromDate = Carbon::parse($currentDate);
 
-                // Fungsi untuk menghitung denda
+                //Hitung Denda * telat
                 $countdayslate = $toDate->diffInDays($fromDate);
                 $denda = $credit->penalty * $countdayslate;
+
+                //Hitung nominal angsuran - denda
                 $hitung_denda = $request->input('nominal_angsuran') - $denda;
-                // Fungsi untuk menyimpan denda
+
+                //Simpan nominal denda
+                $installment->nominal_denda = $denda;
+                $installment->save();
+
+                //Hitung yang sudah terbayar
                 $credit->total_terbayar = $credit->total_terbayar + $hitung_denda;
                 $credit->save();
 

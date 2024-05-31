@@ -14,6 +14,7 @@ class Angsuran extends Model
         'keterangan',
         'tanggal_transfer',
         'status',
+        'nominal_denda',
         'author_id',
         'author_name',
         'credit_id',

@@ -68,12 +68,14 @@ class DetailDataPinjamanController extends Controller
                 $reviewcredit->save();
 
                 if ($request->hasFile('upload_bukti_transfer_review')) {
-                    $fileName = $request->upload_bukti_transfer_review->getClientOriginalName();
+                    $directory = 'files';
+                    $fileName = $request->file('upload_bukti');
 
                     // Menyimpan data pada storage local
-                    Storage::putFileAs('public/files', $request->upload_bukti_transfer_review, $fileName);
+                    $pathFile = Storage::disk('public')->put($directory, $fileName);
+
                     // Menyimpan File pada database File Data Pinjaman
-                    $reviewcreditfile->files = $fileName;
+                    $reviewcreditfile->files = $pathFile;
                     $reviewcreditfile->review_credit_id = $reviewcredit->id;
                     $reviewcreditfile->save();
                 }
@@ -118,12 +120,14 @@ class DetailDataPinjamanController extends Controller
                 $reviewcredit->save();
 
                 if ($request->hasFile('upload_bukti_transfer_review')) {
-                    $fileName = $request->upload_bukti_transfer_review->getClientOriginalName();
+                    $directory = 'files';
+                    $fileName = $request->file('upload_bukti');
 
                     // Menyimpan data pada storage local
-                    Storage::putFileAs('public/files', $request->upload_bukti_transfer_review, $fileName);
+                    $pathFile = Storage::disk('public')->put($directory, $fileName);
+
                     // Menyimpan File pada database File Data Pinjaman
-                    $reviewcreditfile->files = $fileName;
+                    $reviewcreditfile->files = $pathFile;
                     $reviewcreditfile->review_credit_id = $reviewcredit->id;
                     $reviewcreditfile->save();
                 }
