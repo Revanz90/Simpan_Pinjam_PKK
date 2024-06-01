@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use App\Models\CreditFile;
 use App\Models\Pinjamans;
 use App\Models\ReviewCredit;
@@ -64,12 +65,12 @@ class DetailDataPinjamanController extends Controller
                 $reviewcredit->no_nota = 'R01';
                 $reviewcredit->keterangan = 'Rosa Request';
                 $reviewcredit->credit_id = $id;
-                $reviewcredit->author_id = Auth::id();
+                $reviewcredit->author_id = $credit->author_id;
                 $reviewcredit->save();
 
                 if ($request->hasFile('upload_bukti_transfer_review')) {
                     $directory = 'files';
-                    $fileName = $request->file('upload_bukti');
+                    $fileName = $request->file('upload_bukti_transfer_review');
 
                     // Menyimpan data pada storage local
                     $pathFile = Storage::disk('public')->put($directory, $fileName);
@@ -88,7 +89,7 @@ class DetailDataPinjamanController extends Controller
                 // An error occurred, rollback the database transaction
                 DB::rollback();
 
-                return redirect()->back()->with('error', 'Pinjaman Ini Ditolak');
+                return redirect()->back()->with('error', 'Gagal Verifikasi Pinjaman Diterima');
             }
         }
 
@@ -116,12 +117,12 @@ class DetailDataPinjamanController extends Controller
                 $reviewcredit->no_nota = 'R01';
                 $reviewcredit->keterangan = 'Rosa Request';
                 $reviewcredit->credit_id = $id;
-                $reviewcredit->author_id = Auth::id();
+                $reviewcredit->author_id = $credit->author_id;
                 $reviewcredit->save();
 
                 if ($request->hasFile('upload_bukti_transfer_review')) {
                     $directory = 'files';
-                    $fileName = $request->file('upload_bukti');
+                    $fileName = $request->file('upload_bukti_transfer_review');
 
                     // Menyimpan data pada storage local
                     $pathFile = Storage::disk('public')->put($directory, $fileName);
@@ -140,7 +141,7 @@ class DetailDataPinjamanController extends Controller
                 // An error occurred, rollback the database transaction
                 DB::rollback();
 
-                return redirect()->back()->with('error', 'Pinjaman ini Ditolak');
+                return redirect()->back()->with('error', 'Gagal Verifikasi Pinjaman Ditolak');
             }
         }
 
