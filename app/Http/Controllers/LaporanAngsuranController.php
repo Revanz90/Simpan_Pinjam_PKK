@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use App\Models\Angsuran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -12,81 +13,96 @@ class LaporanAngsuranController extends Controller
 {
     public function index(Request $request)
     {
-        // $savings = Saving::all()->sortByDesc('tanggal_transfer');
-        $querySavingMonth = Angsuran::query();
-        $month = $request->month_filter;
-        $year = $request->year_filter;
-
-        switch ($month) {
-            case 'januari':
-                $querySavingMonth->whereMonth('tanggal_transfer', '1');
-                break;
-            case 'februari':
-                $querySavingMonth->whereMonth('tanggal_transfer', '2');
-                break;
-            case 'maret':
-                $querySavingMonth->whereMonth('tanggal_transfer', '3');
-                break;
-            case 'april':
-                $querySavingMonth->whereMonth('tanggal_transfer', '4');
-                break;
-            case 'mei':
-                $querySavingMonth->whereMonth('tanggal_transfer', '5');
-                break;
-            case 'juni':
-                $querySavingMonth->whereMonth('tanggal_transfer', '6');
-                break;
-            case 'juli':
-                $querySavingMonth->whereMonth('tanggal_transfer', '7');
-                break;
-            case 'agustus':
-                $querySavingMonth->whereMonth('tanggal_transfer', '8');
-                break;
-            case 'september':
-                $querySavingMonth->whereMonth('tanggal_transfer', '9');
-                break;
-            case 'oktober':
-                $querySavingMonth->whereMonth('tanggal_transfer', '10');
-                break;
-            case 'november':
-                $querySavingMonth->whereMonth('tanggal_transfer', '11');
-                break;
-            case 'desember':
-                $querySavingMonth->whereMonth('tanggal_transfer', '12');
-                break;
-        }
-
-        switch ($year) {
-            case '2023':
-                $querySavingMonth->whereYear('tanggal_transfer', '2023');
-                break;
-            case '2024':
-                $querySavingMonth->whereYear('tanggal_transfer', '2024');
-                break;
-
-        }
-
-        $installments = $querySavingMonth->get();
-
+        //Ambil Data User
         $user = Auth::user();
-        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
-            $installments = Angsuran::all()->sortByDesc('created_at');
-        } else {
-            $installments = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        $anggota = Anggota::where('id_user', $user->id)->first();
+
+        // Inisiasi Query Angsuran
+        $query = Angsuran::query();
+
+        // Apply date range filter if provided
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
+            $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
+            $query->whereBetween('tanggal_transfer', [$startDate, $endDate]);
         }
-        return view('layouts.laporan_angsuran', ['datas' => $installments]);
+
+        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
+            // Mengambil data berdasarkan user dan mengurutkan berdasarkan created_at
+            $query->orderBy('created_at', 'desc')->get();
+        } else {
+            $query->where('author_id', $anggota->id_anggota)->orderBy('created_at', 'desc')->get();
+        }
+
+        $angsurans = $query->get();
+
+        // Calculate the sum of nilai setoran
+        $totalNilaiAngsurans = $angsurans->sum('nominal_angsuran');
+
+        // Count the status
+        $countBaru = $angsurans->where('status', 'baru')->count();
+        $countDiterima = $angsurans->where('status', 'diterima')->count();
+        $countDitolak = $angsurans->where('status', 'ditolak')->count();
+
+        // Prepare the response data
+        $response = [
+            'getAngsurans' => $angsurans,
+            'totalNilaiAngsuran' => $totalNilaiAngsurans
+        ];
+
+        // Return JSON response for AJAX requests
+        if ($request->ajax()) {
+            return response()->json($response);
+        } else {
+            // Return view for non-AJAX requests
+            return view('layouts.laporan_angsuran', $response);
+        }
     }
 
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
+        // Ambil waktu sekarang
+        $dateNow = Carbon::now();
+
+        //Ambil Data User
         $user = Auth::user();
-        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
-            $installment = Angsuran::all()->sortByDesc('created_at');
-        } else {
-            $installment = Angsuran::where('author_id', $user->id)->get()->sortByDesc('created_at');
+        $anggota = Anggota::where('id_user', $user->id)->first();
+
+        // Inisiasi Query Angsuran
+        $query = Angsuran::query();
+
+        // Apply date range filter if provided
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
+            $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
+            $query->whereBetween('tanggal_transfer', [$startDate, $endDate]);
         }
 
-        $pdf = Pdf::loadView('pdf.export_angsuran', ['datas' => $installment]);
-        return $pdf->download('laporan-angsuran' . Carbon::now()->timestamp . '.pdf');
+        if ($user->hasRole('admin') | $user->hasRole('ketua') | $user->hasRole('bendahara')) {
+            // Mengambil data berdasarkan user dan mengurutkan berdasarkan created_at
+            $query->orderBy('created_at', 'desc')->get();
+        } else {
+            $query->where('author_id', $anggota->id_anggota)->orderBy('created_at', 'desc')->get();
+        }
+
+        $angsurans = $query->get();
+
+        // Calculate the sum of nilai setoran
+        $totalNilaiAngsurans = $angsurans->sum('nominal_angsuran');
+
+        // Count the status
+        $countBaru = $angsurans->where('status', 'baru')->count();
+        $countDiterima = $angsurans->where('status', 'diterima')->count();
+        $countDitolak = $angsurans->where('status', 'ditolak')->count();
+
+        // Prepare the response data
+        $response = [
+            'getAngsurans' => $angsurans,
+            'totalNilaiAngsuran' => $totalNilaiAngsurans,
+            'dateNow' => $dateNow
+        ];
+
+        $pdf = Pdf::loadView('pdf.export_angsuran', $response);
+        return $pdf->download('laporan-angsuran ' . Carbon::now() . '.pdf');
     }
 }
