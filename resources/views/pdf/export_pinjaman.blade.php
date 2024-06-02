@@ -135,24 +135,40 @@
 
     <!-- Table Content -->
     <div class="table-container">
-        <table id="examplePolos" class="table table-bordered table-striped">
+        <table id="resume-pinjaman-table" class="table table-bordered table-striped mb-4">
             <thead>
                 <tr>
+                    <th>Total Pinjaman</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rp{{ $totalNilaiPinjaman }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="detail-pinjaman-table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
                     <th>ID Anggota</th>
                     <th>Nama Anggota</th>
                     <th>Nominal Pinjaman</th>
                     <th>Tanggal Pinjaman</th>
-                    <th>Status Pinjaman</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($datas as $credit => $data)
+                @php $no = 1; @endphp
+                @foreach ($getPinjaman as $pinjaman)
                     <tr>
-                        <th>{{ $data->author_id }}</th>
-                        <td>{{ $data->author_name }}</td>
-                        <td>{{ $data->nominal_pinjaman }}</td>
-                        <td>{{ $data->tanggal_pinjaman }}</td>
-                        <td>{{ $data->status_credit }}</td>
+                        <th>{{ $no++ }}</th>
+                        <th>{{ $pinjaman->author_id }}</th>
+                        <td>{{ $pinjaman->author_name }}</td>
+                        <td>{{ $pinjaman->nominal_pinjaman }}</td>
+                        <td>{{ \Carbon\Carbon::parse($pinjaman->tanggal_pinjaman)->formatLocalized('%d %B %Y') ?? '' }}</td>
+                        <td>{{ $pinjaman->status_credit }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -163,7 +179,7 @@
     <!-- Signature -->
     <div class="signature mb-3">
         <div class="signature-content">
-            <p><strong>Yogyakarta, 18 Februari 2024</strong></p>
+            <p><strong>Yogyakarta, {{ \Carbon\Carbon::parse($dateNow)->translatedFormat('d F Y') }}</strong></p>
             <p><strong>Ketua PKK,</strong></p>
             <br><br><br>
             <p><strong>Eni Kusrini Amd.Kep</strong></p>
