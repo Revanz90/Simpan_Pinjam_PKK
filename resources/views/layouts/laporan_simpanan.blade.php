@@ -55,7 +55,7 @@
 
             <!-- Page Content -->
             <div class="card-body">
-                <table id="resume-angsuran-table" class="table table-bordered table-striped mb-4">
+                <table id="resume-simpanan-table" class="table table-bordered table-striped mb-4">
                     <thead>
                         <tr>
                             <th>Total Simpanan</th>
@@ -63,12 +63,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Rp{{ $totalNilaiSimpanan }}</td>
+                            <td>{{ $totalNilaiSimpanan }}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <table id="detail-angsuran-table" class="table table-bordered table-striped">
+                <table id="detail-simpanan-table" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -145,8 +145,8 @@
                         console.log(response);
 
                         // Clear existing content
-                        $('#detail-angsuran-table tbody').empty();
-                        $('#resume-angsuran-table tbody').empty();
+                        $('#detail-simpanan-table tbody').empty();
+                        $('#resume-simpanan-table tbody').empty();
 
                         // Initialize a counter for row numbers
                         var counter = 1;
@@ -156,7 +156,7 @@
                             // Extract relevant data from the object
                             var authorid = getSimpanan.author_id ? getSimpanan.author_id : '';
                             var authorname = getSimpanan.author_name ? getSimpanan.author_name : '';
-                            var nominalangsuran = getSimpanan.nominal_uang ? getSimpanan.nominal_uang : '';
+                            var nominaluang = getSimpanan.nominal_uang ? getSimpanan.nominal_uang : '';
                             var tanggaltransfer = getSimpanan.tanggal_transfer ? moment(getSimpanan.tanggal_transfer).format('MMMM YYYY') : '';
                             var status = getSimpanan.status ? getSimpanan.status.toUpperCase() : '';
 
@@ -165,13 +165,13 @@
                                     '<td>' + (counter || '') + '</td>' +
                                     '<td>' + (authorid || '') + '</td>' +
                                     '<td>' + (authorname || '') + '</td>' +
-                                    '<td>' + (nominalangsuran || '') + '</td>' +
+                                    '<td>' + (nominaluang || '') + '</td>' +
                                     '<td>' + (tanggaltransfer || '') + '</td>' +
                                     // '<td>' + (status || '') + '</td>' +
                                 '</tr>';
 
                             // Append the new row to the table body
-                            $('#detail-angsuran-table tbody').append(row);
+                            $('#detail-simpanan-table tbody').append(row);
 
                             // Increment the counter
                             counter++;
@@ -182,7 +182,7 @@
                                 '</tr>';
 
                             // Append the new row to the table body
-                            $('#resume-angsuran-table tbody').append(rowResume);
+                            $('#resume-simpanan-table tbody').append(rowResume);
                         });
                     },
                     error: function(xhr, status, error) {
