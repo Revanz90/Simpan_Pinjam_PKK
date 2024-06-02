@@ -33,13 +33,15 @@
                     @endif
                 @endhasrole
 
-                @if ($data->status_credit == 'baru')
-                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal-default-pinjaman">
-                        <i class="fas fa-plus"></i>
-                        Verifikasi
-                    </button>
-                @endif
+                @hasrole('admin|ketua|bendahara')
+                    @if ($data->status_credit == 'baru')
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#modal-default-pinjaman">
+                            <i class="fas fa-plus"></i>
+                            Verifikasi
+                        </button>
+                    @endif
+                @endhasrole
             </div>
         </div>
 

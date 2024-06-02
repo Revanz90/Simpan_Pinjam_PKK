@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->timestamp('tanggal_transfer');
             $table->enum('status', ['baru', 'disimpan', 'diterima', 'ditolak'])->default('baru');
+            $table->integer('nominal_denda')->default(0);
             $table->unsignedBigInteger('author_id');
             $table->string('author_name');
             $table->unsignedBigInteger('credit_id');
