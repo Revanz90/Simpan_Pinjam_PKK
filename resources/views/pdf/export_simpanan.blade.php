@@ -135,24 +135,40 @@
 
     <!-- Table Content -->
     <div class="table-container">
-        <table id="examplePolos" class="table table-bordered table-striped">
+        <table id="resume-angsuran-table" class="table table-bordered table-striped mb-4">
+                    <thead>
+                        <tr>
+                            <th>Total Simpanan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rp{{ $totalNilaiSimpanan }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+        <table id="detail-angsuran-table" class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>ID Anggota</th>
                     <th>Nama Anggota</th>
-                    <th>Nominal</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
+                    <th>Nominal Simpanan</th>
+                    <th>Tanggal Simpanan</th>
+                    <!-- <th>Status</th> -->
                 </tr>
             </thead>
             <tbody>
-                @foreach ($datas as $saving => $data)
+                @php $no = 1; @endphp
+                @foreach ($getSimpanan as $simpanan)
                     <tr>
-                        <th>{{ $data->author_id }}</th>
-                        <td>{{ $data->author_name }}</td>
-                        <td>{{ $data->nominal_uang }}</td>
-                        <td>{{ $data->tanggal_transfer }}</td>
-                        <td>{{ $data->status }}</td>
+                        <th>{{ $no++ }}</th>
+                        <th>{{ $simpanan->author_id }}</th>
+                        <td>{{ $simpanan->author_name }}</td>
+                        <td>{{ $simpanan->nominal_uang }}</td>
+                        <td>{{ \Carbon\Carbon::parse($simpanan->tanggal_transfer)->formatLocalized('%d %B %Y') ?? '' }}</td>
+                        <!-- <td>{{ $simpanan->status }}</td> -->
                     </tr>
                 @endforeach
             </tbody>
@@ -163,7 +179,7 @@
     <!-- Signature -->
     <div class="signature mb-3">
         <div class="signature-content">
-            <p><strong>Yogyakarta, 18 Februari 2024</strong></p>
+            <p><strong>Yogyakarta, {{ \Carbon\Carbon::parse($dateNow)->translatedFormat('d F Y') }}</strong></p>
             <p><strong>Ketua PKK,</strong></p>
             <br><br><br>
             <p><strong>Eni Kusrini Amd.Kep</strong></p>

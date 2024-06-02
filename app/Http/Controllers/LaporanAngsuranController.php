@@ -103,6 +103,6 @@ class LaporanAngsuranController extends Controller
         ];
 
         $pdf = Pdf::loadView('pdf.export_angsuran', $response);
-        return $pdf->download('laporan-angsuran ' . Carbon::now() . '.pdf');
+        return $pdf->download('Laporan Angsuran ' . Carbon::now() . '.pdf');
     }
 }
