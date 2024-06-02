@@ -73,6 +73,7 @@ class InstallmentController extends Controller
 
                 //Simpan nominal denda
                 $installment->nominal_denda = $denda;
+                $installment->total_terbayar = $hitung_denda;
                 $installment->save();
 
                 //Hitung yang sudah terbayar
@@ -96,6 +97,7 @@ class InstallmentController extends Controller
             } else {
                 $installment->nominal_angsuran = $request->input('nominal_angsuran');
                 $installment->tanggal_transfer = $request->input('tanggal_transfer_angsuran');
+                $installment->total_terbayar = $request->input('nominal_angsuran');
                 $installment->keterangan = $request->input('keterangan_angsuran');
                 $installment->author_id = $anggotaID->id_anggota;
                 $installment->author_name = $anggotaID->nama_anggota;

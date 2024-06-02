@@ -24,12 +24,19 @@ class ResumeTransaksiAngsuranController extends Controller
         function hitungDenda($angsuran) {
             return $angsuran->sum('nominal_denda');
         }
+
+        // Fungsi untuk menghitung nominal denda berdasarkan koleksi Angsuran
+        function hitungTerbayar($angsuran) {
+            return $angsuran->sum('total_terbayar');
+        }
     
         $nominalPerAuthor = [];
         $dendaPerAuthor = [];
+        $totalTerbayarPerAuthor = [];
         $angsuranSorted = collect();  // Inisialisasi sebagai koleksi kosong
         $totalNominal = 0;
         $totalDenda = 0;
+        $totalTerbayar = 0;
         $anggotaid = collect();
 
         if ($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara')) {
@@ -44,6 +51,7 @@ class ResumeTransaksiAngsuranController extends Controller
             foreach ($angsuranGroupedByAuthor as $author_id => $angsuran) {
                 $nominalPerAuthor[$author_id] = hitungNominal($angsuran);
                 $dendaPerAuthor[$author_id] = hitungDenda($angsuran);
+                $totalTerbayarPerAuthor[$author_id] = hitungTerbayar($angsuran);
             }
     
             // Sort by desc berdasarkan created_at
@@ -66,9 +74,10 @@ class ResumeTransaksiAngsuranController extends Controller
             // Hitung total nominal
             $totalNominal = hitungNominal($angsuran);
             $totalDenda = hitungDenda($angsuran);
+            $totalTerbayar = hitungTerbayar($angsuran);
         }
 
-        return view('layouts.resume_transaksi_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'dendaPerAuthor', 'totalNominal', 'totalDenda', 'user', 'anggotaid'));
+        return view('layouts.resume_transaksi_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'dendaPerAuthor', 'totalNominal', 'totalDenda', 'totalTerbayarPerAuthor', 'totalTerbayar','user', 'anggotaid'));
     }
 
     public function exportDetailTransaksiAngsuranToPDF(){
