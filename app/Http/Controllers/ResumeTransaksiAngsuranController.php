@@ -141,9 +141,9 @@ class ResumeTransaksiAngsuranController extends Controller
             }
 
             // Hitung total nominal
-            $totalNominal = hitungNominal($angsuran);
-            $totalDenda = hitungDenda($angsuran);
-            $totalTerbayar = hitungTerbayar($angsuran);
+            $totalNominal = hitungNominalAngsuran($angsuran);
+            $totalDenda = hitungDendaAngsuran($angsuran);
+            $totalTerbayar = hitungTerbayarAngsuran($angsuran);
         }
 
         $pdf = Pdf::loadView('pdf.export_detail_angsuran', compact('angsuranSorted', 'nominalPerAuthor', 'dendaPerAuthor', 'totalTerbayarPerAuthor', 'totalNominal', 'totalDenda', 'totalTerbayar', 'user', 'anggotaid', 'dateNow'));
