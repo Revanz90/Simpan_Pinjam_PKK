@@ -141,6 +141,8 @@
                     <th>ID Anggota</th>
                     <th>Nama Anggota</th>
                     <th>Jumlah Angsuran</th>
+                    <th>Jumlah Denda</th>
+                    <th>Total Terbayar</th>
                 </tr>
             </thead>
             <tbody>
@@ -150,12 +152,26 @@
                         <td>{{ $anggota->nama_anggota }}</td>
                         <td>
                             @if($user->hasRole('admin'))
-                            {{ $nominalPerAuthor[$anggota->id_user] ?? 0 }}
+                                {{ $nominalPerAuthor[$anggota->id_anggota] ?? 0 }}
                             @else
-                            {{ $totalNominal }}
+                                {{ $totalNominal }}
                             @endif
-                            </td>
-                        </tr>
+                        </td>
+                        <td>
+                            @if($user->hasRole('admin'))
+                                {{ $dendaPerAuthor[$anggota->id_anggota] ?? 0 }}
+                            @else
+                                {{ $totalDenda }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($user->hasRole('admin'))
+                                {{ $totalTerbayarPerAuthor[$anggota->id_anggota] ?? 0 }}
+                            @else
+                                {{ $totalTerbayar }}
+                            @endif
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

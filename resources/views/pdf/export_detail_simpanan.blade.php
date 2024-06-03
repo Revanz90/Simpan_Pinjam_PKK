@@ -150,12 +150,12 @@
                         <td>{{ $anggota->nama_anggota }}</td>
                         <td>
                             @if($user->hasRole('admin'))
-                            {{ $nominalPerAuthor[$anggota->id_user] ?? 0 }}
+                                {{ $nominalPerAuthor[$anggota->id_anggota] ?? 0 }}
                             @else
-                            {{ $totalNominal }}
+                                {{ $totalNominal }}
                             @endif
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
