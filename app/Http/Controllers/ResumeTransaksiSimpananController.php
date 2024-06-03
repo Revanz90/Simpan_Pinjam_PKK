@@ -88,6 +88,7 @@ class ResumeTransaksiSimpananController extends Controller
             // Loop melalui setiap kelompok simpanan untuk menghitung total nominal per author
             foreach ($simpananGroupedByAuthor as $author_id => $simpanan) {
                 $nominalPerAuthor[$author_id] = hitungNominalAngsuran($simpanan);
+                
             }
     
             // Sort by desc berdasarkan created_at
