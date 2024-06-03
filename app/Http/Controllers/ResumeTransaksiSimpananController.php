@@ -66,6 +66,7 @@ class ResumeTransaksiSimpananController extends Controller
     public function exportDetailTransaksiSimpananToPDF(){
         $user = Auth::user();
         $dateNow = Carbon::now();
+
         // Fungsi untuk menghitung nominal uang berdasarkan koleksi Simpanan
         function hitungNominalAngsuran($simpanan) {
             return $simpanan->sum('nominal_uang');
@@ -82,7 +83,7 @@ class ResumeTransaksiSimpananController extends Controller
 
             // Ambil semua anggota
             $authorIds = $simpananGroupedByAuthor->keys();
-            $anggotaid = Anggota::whereIn('id_user', $authorIds)->get();
+            $anggotaid = Anggota::whereIn('id_anggota', $authorIds)->get();
             
             // Loop melalui setiap kelompok simpanan untuk menghitung total nominal per author
             foreach ($simpananGroupedByAuthor as $author_id => $simpanan) {
@@ -95,12 +96,13 @@ class ResumeTransaksiSimpananController extends Controller
             });
     
         } else {
+            //Ambil data anggota
+            $anggota = Anggota::where('id_user', $user->id)->first();
+
             // Ambil simpanan berdasarkan author_id user
-            $simpanan = Simpanan::where('author_id', $user->id)->get()->sortByDesc('created_at');
-            // $anggotaid = Anggota::where('id_user', $user->id)->first();
+            $simpanan = Simpanan::where('author_id', $anggota->id_anggota)->get()->sortByDesc('created_at');
 
             // Ambil data anggota dan masukkan ke dalam koleksi
-            $anggota = Anggota::where('id_user', $user->id)->first();
             if ($anggota) {
                 $anggotaid = collect([$anggota]);
             }
