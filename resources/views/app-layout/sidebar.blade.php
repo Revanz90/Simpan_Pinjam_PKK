@@ -75,7 +75,7 @@
                     </a>
                 </li>
 
-                <h1 class="nav-header">PROSES PINJAMAN</li>
+                <h1 class="nav-header">PROSES ANGSURAN</li>
                 <li class="nav-item {{ request()->routeIs('dataangsuran') ? 'menu-open' : '' }}">
                     <a href="{{ route('dataangsuran') }}" class="nav-link">
                         <i class="nav-icon fas fa-donate"></i>

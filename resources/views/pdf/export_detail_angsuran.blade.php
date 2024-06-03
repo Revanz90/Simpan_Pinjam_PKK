@@ -151,21 +151,21 @@
                         <td>{{ $anggota->id_anggota }}</td>
                         <td>{{ $anggota->nama_anggota }}</td>
                         <td>
-                            @if($user->hasRole('admin'))
+                            @if($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara'))
                                 {{ $nominalPerAuthor[$anggota->id_anggota] ?? 0 }}
                             @else
                                 {{ $totalNominal }}
                             @endif
                         </td>
                         <td>
-                            @if($user->hasRole('admin'))
+                            @if($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara'))
                                 {{ $dendaPerAuthor[$anggota->id_anggota] ?? 0 }}
                             @else
                                 {{ $totalDenda }}
                             @endif
                         </td>
                         <td>
-                            @if($user->hasRole('admin'))
+                            @if($user->hasRole('admin')|$user->hasRole('ketua')|$user->hasRole('bendahara'))
                                 {{ $totalTerbayarPerAuthor[$anggota->id_anggota] ?? 0 }}
                             @else
                                 {{ $totalTerbayar }}
